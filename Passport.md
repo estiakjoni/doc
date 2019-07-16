@@ -380,7 +380,7 @@ php artisan make:resource ProductResource
 </pre>
 </li>
 
-<li>Once ProductResource is created, let’s open it and update the toArray() method as below: <code>Resources/ProductResource.php</code>
+<li>Once ProductResource is created, let’s open it and update the toArray() method as below: <code>app/Http/Resources/ProductResource.php</code>
 <pre>
     public function toArray($request)
     {
@@ -474,6 +474,8 @@ class ProductController extends Controller
 <li>If you tried to fetch a non-existent resource, you’ll be thrown an exception and you’ll receive the whole stacktrace. We can fix that by editing our exception handler class, update render() method  and use Response class on top, file located in <code>app/Exceptions/Handler.php</code> to return a JSON response:
 
 ````php
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Response;
 
 
@@ -503,6 +505,9 @@ use Symfony\Component\HttpFoundation\Response;
 <li>Let's create user check exception handler and paste below codes: <code>app/Exceptions/UserCheckHandler.php</code>
 
 `````php
+<?php
+
+
 namespace App\Exceptions;
 
 
