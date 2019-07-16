@@ -250,7 +250,7 @@ php artisan make:controller AuthController
 </pre>
 </li>
 
-<li>Next, open AuthController and paste the following code into it: <code>app/Http/Controller/AuthController</code>
+<li>Next, open AuthController and paste the following code into it: <code>app/Http/Controller/AuthController.php</code>
 
 ```php
 namespace App\Http\Controllers;
