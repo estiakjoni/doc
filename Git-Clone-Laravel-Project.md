@@ -19,13 +19,7 @@ php artisan config:clear
 ```bash
 cp .env.example .env
 ```
-</li>
-
-<li>After setup .env file. To speed up the website. Make config cache.
-
-```bash
- php artisan config:cache
-```
+The first part of your .env file covers basic application settings. And the next section in the .env asks you about your database settings. 
 </li>
 </ul>
 
@@ -45,6 +39,13 @@ For global composer installations:
 ```bash
 cd <install-dir>
 composer install --no-dev --prefer-source
+```
+
+## Config cache
+After setup .env file and composer To speed up the website. Make config cache.
+
+```bash
+ php artisan config:cache
 ```
 
 ## Generate Your App Key
