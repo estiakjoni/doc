@@ -41,15 +41,15 @@ cd <install-dir>
 composer install --no-dev --prefer-source
 ```
 
+## Generate Your App Key
+Once you've Downloaded, set up Configuration in .env file, and Installed Dependencies, Next need to set an app key. The easiest way to do this is via the artisans command:
+```bash
+php artisan key:generate
+```
+
 ## Config cache
 After setup .env file and composer To speed up the website. Make config cache.
 
 ```bash
  php artisan config:cache
-```
-
-## Generate Your App Key
-Once you've Downloaded, set up Configuration in .env file, and Installed Dependencies, Next need to set an app key. The easiest way to do this is via the artisans command:
-```bash
-php artisan key:generate
 ```
