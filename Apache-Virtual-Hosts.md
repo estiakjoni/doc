@@ -230,3 +230,20 @@ Allow incoming HTTP and HTTPS traffic for this profile:
 ```bash
 sudo ufw allow in "Apache Full"
 ```
+
+
+## How To Find your Server's Public IP Address
+There are a few different ways to do this from the command line. First, you could use the iproute2 tools to get your IP address by typing this:
+
+```bash
+ip addr show eth0 | grep inet | awk '{ print $2; }' | sed 's/\/.*$//'
+```
+
+
+
+An alternative method is to use the curl utility to contact an outside party to tell you how it sees your server. This is done by asking a specific server what your IP address is:
+
+```bash
+sudo apt install curl
+curl http://icanhazip.com
+```
