@@ -90,3 +90,30 @@ Create [phpinfo] in Virtualhost's web-root:
 echo '<?php phpinfo(); ?>' > /var/www/html/info.php
 ```
 Hit: http://localhost/info.php
+
+
+# Oprional For PHP
+
+## Show the List of Installed Packages on Ubuntu or Debian
+<ul>
+<li>The command we need to use is dpkg –get-selections, which will give us a list of all the currently installed packages.
+
+```bash
+dpkg --get-selections
+```
+</li>
+	
+<li>The full list can be long and unwieldy, so it’s much easier to filter through grep to get results for the exact package you need. For instance, I wanted to see which php packages I had already installed through apt-get:
+
+```bash
+dpkg --get-selections | grep php
+```
+</li>
+
+<li>For extra credit, you can find the locations of the files within a package from the list by using the dpkg -L command, such as:
+
+```bash
+dpkg -L php7.2-gd
+```
+</li>
+</ul>
