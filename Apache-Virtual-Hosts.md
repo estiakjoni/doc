@@ -5,13 +5,22 @@ apt -y install apache2
 ```
 
 ## Configure Apache2
+<ul>
+<li>Enable Apache mod_rewrite module
 
+```bash
+sudo a2enmod rewrite
+```
+</li>
+
+<li>Edit security.conf
 ```bash
 nano /etc/apache2/conf-enabled/security.conf
 ```
 line 25: change
 <pre>ServerTokens Prod</pre>
-
+</li>
+</ul>
 ## Virtual Hosts
 
 <ul>
@@ -40,6 +49,7 @@ We should also modify our permissions a little bit to ensure that read access is
 
 ```bash
 sudo chmod -R 755 /var/www
+sudo chown -R www-data: storage
 ```
 </li>
 
