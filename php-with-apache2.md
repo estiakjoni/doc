@@ -117,3 +117,10 @@ dpkg -L php7.2-gd
 ```
 </li>
 </ul>
+
+## Laravel Extention
+
+```bash
+sudo apt install php-common php-mbstring php-xml php-zip php-curl php-json php-bcmath php-ctype php-mbstring php-pdo php-tokenizer
+```
+
