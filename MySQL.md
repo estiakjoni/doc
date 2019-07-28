@@ -37,4 +37,13 @@ sudo mysql -u root
 </li>
 
 
+<li>Then, run FLUSH PRIVILEGES which tells the server to reload the grant tables and put your new changes into effect:
+<pre>FLUSH PRIVILEGES;</pre>
+</li>
+
+
+<li>Once you confirm this on your own server, you can exit the MySQL shell:
+  <pre>exit</pre>
+</li>
+
 </ul>
