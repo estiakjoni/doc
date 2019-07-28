@@ -22,6 +22,7 @@ line 25: change
 <pre>ServerTokens Prod</pre>
 </li>
 </ul>
+
 ## Virtual Hosts
 
 <ul>
@@ -187,3 +188,45 @@ For the domains that I used in this guide, assuming that my VPS IP address is 11
 </pre>
 </li>
 </ul>
+
+
+## Adjust the Firewall to Allow Web Traffic Ubuntu
+Next, assuming that you have followed the initial server setup instructions and enabled the UFW firewall, make sure that your firewall allows HTTP and HTTPS traffic. You can check that UFW has an application profile for Apache like so:
+
+```bash
+sudo ufw app list
+```
+
+Output:
+
+```text
+Available applications:
+  Apache
+  Apache Full
+  Apache Secure
+```
+
+If you look at the Apache Full profile, it should show that it enables traffic to ports 80 and 443:
+
+```bash
+sudo ufw app info "Apache Full"
+```
+
+Output:
+
+```text
+Profile: Apache Full
+Title: Web Server (HTTP,HTTPS)
+Description: Apache v2 is the next generation of the omnipresent Apache web
+server.
+
+Ports:
+  80,443/tcp
+```
+
+Allow incoming HTTP and HTTPS traffic for this profile:
+
+
+```bash
+sudo ufw allow in "Apache Full"
+```
