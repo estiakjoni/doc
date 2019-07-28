@@ -21,7 +21,7 @@ sudo mysql_secure_installation
 <li>Open up the MySQL prompt from your terminal:
 
 ```bash
-sudo mysql -u root
+sudo mysql -u root -p
 ```
 </li>
 
