@@ -85,3 +85,13 @@ sudo apt install phpmyadmin php-mbstring php-gettext
 </li>  
 
 </ul>
+
+
+
+## Uninstall MySQL
+
+```bash
+sudo dpkg-reconfigure mysql-server-N.N
+sudo apt-get --purge remove mysql-server mysql-common mysql-client
+```
+(where N.N is the MySql Server version)
