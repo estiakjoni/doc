@@ -10,7 +10,7 @@ apt -y install apache2
 nano /etc/apache2/conf-enabled/security.conf
 ```
 line 25: change
-<preServerTokens Prod</pre>
+<pre>ServerTokens Prod</pre>
 
 ## Virtual Hosts
 
