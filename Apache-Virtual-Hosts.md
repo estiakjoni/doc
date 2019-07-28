@@ -14,6 +14,7 @@ sudo a2enmod rewrite
 </li>
 
 <li>Edit security.conf
+	
 ```bash
 nano /etc/apache2/conf-enabled/security.conf
 ```
