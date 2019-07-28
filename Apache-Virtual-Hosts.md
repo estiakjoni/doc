@@ -50,7 +50,8 @@ We should also modify our permissions a little bit to ensure that read access is
 
 ```bash
 sudo chmod -R 755 /var/www
-sudo chown -R www-data: storage
+sudo chown -R www-data: /var/www/test
+sudo chown -R www-data: /var/www/example
 ```
 </li>
 
