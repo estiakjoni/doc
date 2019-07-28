@@ -246,4 +246,5 @@ An alternative method is to use the curl utility to contact an outside party to 
 ```bash
 sudo apt install curl
 curl http://icanhazip.com
+curl https://canhazip.com/more
 ```
