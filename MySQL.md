@@ -47,3 +47,41 @@ sudo mysql -u root -p
 </li>
 
 </ul>
+
+
+##  Installing phpMyAdmin
+<ul>
+
+<li>To get started, we will install phpMyAdmin from the default Ubuntu repositories.
+  
+  ```bash
+sudo apt install phpmyadmin php-mbstring php-gettext
+  ```
+</li>
+
+
+<li>The installation process adds the phpMyAdmin Apache configuration file into the /etc/apache2/conf-enabled/ directory, where it is read automatically. The only thing you need to do is explicitly enable the mbstring PHP extension, which you can do by typing:
+  
+  ```bash
+  sudo phpenmod mbstring
+  ```
+  </li>
+  
+  <li>Afterwards, restart Apache for your changes to be recognized:
+  
+  ```bash
+  sudo systemctl restart apache2
+  ```
+  </li>
+  
+<li>Adjusting User Authentication and Privileges, To do this, open up the MySQL prompt from your terminal:
+  
+  ```bash
+  sudo mysql -u root -p
+  update mysql.user set plugin='' where user='root';
+  flush privileges;
+  exit
+  ```
+</li>  
+
+</ul>
