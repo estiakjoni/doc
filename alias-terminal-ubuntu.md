@@ -5,7 +5,7 @@
 <li>Open the .bashrc file located in your home folder.
 
 ```bash
-sudo nano .bashrc
+sudo nano ~/.bashrc
 ```
 </li>
 
