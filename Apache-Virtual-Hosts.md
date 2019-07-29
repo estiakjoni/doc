@@ -75,12 +75,17 @@ sudo nano /etc/apache2/sites-available/example.com.conf
 ```
 
 Edit Following lines in VirtualHost:
-<pre>
+
+```text
 	ServerAdmin admin@example.com
 	ServerName example.com
 	ServerAlias www.example.com
 	DocumentRoot /var/www/example
-</pre>
+	<Directory /var/www/example>
+        	AllowOverride All
+        </Directory>
+
+```
 
 Or remove all lines and paste following:
 
@@ -90,6 +95,9 @@ Or remove all lines and paste following:
     ServerName example.com
     ServerAlias www.example.com
     DocumentRoot /var/www/example
+    <Directory /var/www/example>
+        	AllowOverride All
+    </Directory>    
     ErrorLog ${APACHE_LOG_DIR}/error.log
     CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
@@ -112,12 +120,16 @@ sudo nano /etc/apache2/sites-available/test.com.conf
 ```
 
 Edit Following lines in VirtualHost:
-<pre>
+
+```text
     ServerAdmin admin@test.com
     ServerName test.com
     ServerAlias www.test.com
     DocumentRoot /var/www/test
-</pre>
+    <Directory /var/www/test>
+    		AllowOverride All
+    </Directory>  
+```
 
 Or remove all lines and paste following:
 
@@ -127,6 +139,9 @@ Or remove all lines and paste following:
     ServerName test.com
     ServerAlias www.test.com
     DocumentRoot /var/www/test
+    <Directory /var/www/test>
+    		AllowOverride All
+    </Directory>
     ErrorLog ${APACHE_LOG_DIR}/error.log
     CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
