@@ -1,7 +1,7 @@
 ## Install PHP
 
 ```bash
-sudo apt -y install php php-cgi libapache2-mod-php php-common php-pear php-mbstring php-xml php-gd php-opcache php-fpm
+sudo apt -y install php php*-cgi libapache2-mod-php* php*-common php*-pear php*-mbstring php*-xml php*-gd php*-opcache php*-fpm php*-zip php*-curl php*-json php*-bcmath php*-ctype php*-pdo php*-tokenizer php**-mcrypt php*-readline php*-cli
 ```
 
 ## Configure Apache2
@@ -117,10 +117,4 @@ dpkg -L php7.2-gd
 ```
 </li>
 </ul>
-
-## Laravel Extention
-
-```bash
-sudo apt install php-common php-mbstring php-xml php-zip php-curl php-json php-bcmath php-ctype php-mbstring php-pdo php-tokenizer
-```
 
