@@ -23,6 +23,7 @@ Now that you have your web server up and running, it is time to install MySQL. M
 <li>Use apt to acquire and install this software:
 
 ```bash
+sudo apt update
 sudo apt install mysql-server
 ```
 </li>
