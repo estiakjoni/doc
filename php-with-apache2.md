@@ -7,7 +7,7 @@ sudo apt -y install php php-cgi libapache2-mod-php php-common php-pear php-mbstr
 ## Configure Apache2
 
 ```bash
-sudo a2enconf php7.2-cgi
+sudo a2enconf php*-cgi
 ```
 
 
