@@ -1,3 +1,20 @@
+## Configure MySQL PPA (If youre using ubuntu skip this, start from Installing MySQL)
+MySQL team provides official MySQL PPA for Debian Linux. You can download and install the package on your Debian system, which will add PPA file to your system. Run below command to enable PPA.
+
+```bash
+wget http://repo.mysql.com/mysql-apt-config_0.8.13-1_all.deb
+sudo dpkg -i mysql-apt-config_0.8.13-1_all.deb
+```
+
+During the installation of MySQL apt config package, It will prompt to select MySQL version to install. Select the MySQL 8.0 or 5.7 option to install on your system. For this tutorial, we have selected MySQL 5.7 to install on my Debian system. Once you have selected a specific version and you need to change the configuration, use the following command.
+
+
+```bash
+sudo dpkg-reconfigure mysql-apt-config
+```
+Select a version of your choice and save.
+
+
 ## Installing MySQL
 Now that you have your web server up and running, it is time to install MySQL. MySQL is a database management system. Basically, it will organize and provide access to databases where your site can store information.
 
