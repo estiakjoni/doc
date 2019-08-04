@@ -8,6 +8,7 @@ The client-side configuration file is called config and it is located in your us
 
 ```bash
 touch ~/.ssh/config && chmod 700 ~/.ssh/config
+sudo nano ~/.ssh/config
 ```
 
 
