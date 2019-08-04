@@ -141,3 +141,10 @@ git push -f
 
 git log --oneline
 </pre>
+
+
+## Git Reset and Clean (Restore to last commit)
+
+```bash
+git reset --hard;git clean -df;
+```
