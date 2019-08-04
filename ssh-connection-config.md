@@ -7,7 +7,7 @@ Each user on your local system can maintain a client-side SSH configuration file
 The client-side configuration file is called config and it is located in your user's home directory within the .ssh configuration directory. Often, this file is not created by default, so you may need to create it yourself:
 
 ```bash
-touch ~/.ssh/config
+touch ~/.ssh/config && chmod 700 ~/.ssh/config
 ```
 
 
