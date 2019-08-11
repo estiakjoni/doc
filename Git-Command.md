@@ -104,6 +104,38 @@ eval $(ssh-agent -s)
 ssh-add ~/.ssh/id_rsa
 ```
 
+
+## Connect Git account from fresh PC through SSH key
+
+<ul>
+
+<li> Put existing ssh private cd on <code>~/.ssh</code> folder.</li>
+
+<li>Ensure the ssh-agent is running
+
+```ssh
+eval $(ssh-agent -s)
+```
+</li>
+
+<li>Add your SSH private key to the ssh-agent.
+
+```ssh
+ssh-add ~/.ssh/id_rsa
+```
+</li>
+
+<li>Test git ssh connection
+
+```ssh
+ssh -T git@github.com
+```
+</li> 
+
+</ul>
+
+
+
 ## Create a new repository on the command line
 
 ```sh
