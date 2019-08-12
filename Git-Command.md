@@ -195,7 +195,7 @@ alias gs='git status'
 
 alias gl='git log'
 
-alias ga='git addd .'
+alias ga='git add .'
 
 alias gc='git commit -m'
 
