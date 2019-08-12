@@ -180,3 +180,26 @@ git log --oneline
 ```bash
 git reset --hard;git clean -df;
 ```
+Or
+
+```bash
+git reset --hard && git clean -df
+```
+
+## Git Alias
+
+```text
+alias nah='git reset --hard && git clean -df'
+
+alias gs='git status'
+
+alias gl='git log'
+
+alias ga='git addd .'
+
+alias gc='git commit -m'
+
+alias gp='git push'
+
+alias gpm='git push -u origin master'
+```
