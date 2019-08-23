@@ -28,3 +28,28 @@ source ~/.bashrc
 </li>
 
 </ul>
+
+
+## Example Some Useful Aliases
+
+```text
+export PATH="~/.config/composer/vendor/bin:$PATH" 
+
+alias nah='git reset --hard && git clean -df'
+
+alias gs='git status'
+
+alias gl='git log'
+
+alias ga='git add .'
+
+alias gc='git commit -m'
+
+alias gp='git push'
+
+alias gpm='git push -u origin master'
+
+alias ps='/usr/local/bin/pstorm'
+
+alias open='gnome-open'
+```
