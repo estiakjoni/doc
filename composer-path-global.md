@@ -3,7 +3,7 @@
 ### Open .bashrc file (if not avaible try .bash_profile)
 
 ```bash
-sudo nano .bashrc
+sudo nano ~/.bashrc
 ```
 ### Add the following at the end of the file
 Ubuntu:
