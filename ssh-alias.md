@@ -1,4 +1,4 @@
-# The SSH Config
+# The SSH Client Config
 
 Each user on your local system can maintain a client-side SSH configuration file. These can contain any options that you would use on the command line to specify connection parameters, allowing you to store your common connection items and process them automatically on connection. It is always possible to override the values defined in the configuration file at the time of the connection through normal flags to the ssh command.
 
