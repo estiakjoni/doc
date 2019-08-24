@@ -65,7 +65,7 @@ valet install
 </li>
 
 
-<li>Create a new directory on your Mac by running something like <code>mkdir ~/sites</code>. Next,  <code>cd ~/sites</code> and run <code>valet park</code>. This command will register your current working directory as a path that Valet should search for sites.</li>
+<li>Create a new directory on your pc by running something like <code>mkdir ~/sites</code>. Next,  <code>cd ~/sites</code> and run <code>valet park</code>. This command will register your current working directory as a path that Valet should search for sites.</li>
 
 <li>Next, create a new Laravel site within this directory: <code>laravel new blog</code>.</li>
 
