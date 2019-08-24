@@ -20,7 +20,7 @@ sudo apt update && sudo apt upgrade
 ```
 
 ```bash
-sudo apt -y install php php*-cgi php*-common php*-pear php*-mbstring php*-xml php*-gd php*-opcache php*-fpm php*-zip php*-curl php*-json php*-bcmath php*-ctype php*-pdo php*-tokenizer php**-mcrypt php*-readline php*-cli
+sudo apt -y install php php*-cgi php*-common php*-pear php*-mbstring php*-xml php*-gd php*-opcache php*-fpm php*-zip php*-curl php*-json php*-bcmath php*-ctype php*-pdo php*-tokenizer php*-mcrypt php*-readline php*-cli
 ```
 
 ## Installation Composer
