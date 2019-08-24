@@ -1,5 +1,5 @@
-## Valet Linux
-It was initially available only for iOS, but today with the help of a third party package, we can install Valet on linux.
+## Valet Ubuntu
+It was initially available only for iOS, but today with the help of a third party package, we can install Valet on Ubuntu.
 
 Also, make sure that your system isn’t running any programs that bind port 80 (like Apache or Nginx).
 
