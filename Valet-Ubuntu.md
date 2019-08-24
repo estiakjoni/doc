@@ -1,8 +1,8 @@
-## Installation nginx
+## Valet Linux
+It was initially available only for iOS, but today with the help of a third party package, we can install Valet on linux. We will valet-linux package.
 
-```bash
-sudo apt install nginx
-```
+Also, make sure that your system isn’t running any programs that bind port 80 (like Apache or Nginx).
+
 
 ## Dependencies and packages:
 
