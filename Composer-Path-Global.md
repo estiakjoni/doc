@@ -1,4 +1,4 @@
-# Make laravel globally
+# Composer Path Global
 
 ### Open .bashrc file (if not avaible try .bash_profile)
 
