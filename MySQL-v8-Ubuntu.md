@@ -61,6 +61,30 @@ The rest of the prompts can be answered yes. You will be asked about removing th
 
 The script will exit after all the prompts are answered. Now our MySQL installation is reasonably secured. Let’s test it again by running a client that connects to the server and returns some information.
 
+Open up the MySQL prompt from your terminal:
+
+```bash
+sudo mysql -u root -p
+```
+
+Next, check which authentication method each of your MySQL user accounts use with the following command:
+
+<pre>SELECT user,authentication_string,plugin,host FROM mysql.user;</pre>
+
+
+In this example, you can see that the root user does in fact authenticate using the auth_socket plugin. To configure the root account to authenticate with a password, run the following ALTER USER command. Be sure to change password to a strong password of your choosing:
+
+<pre>ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '123123';</pre>
+
+
+Then, run FLUSH PRIVILEGES which tells the server to reload the grant tables and put your new changes into effect:
+<pre>FLUSH PRIVILEGES;</pre>
+
+
+Once you confirm this on your own server, you can exit the MySQL shell:
+<pre>exit</pre>
+
+
 # Testing MySQL
 
 mysqladmin is a command line administrative client for MySQL. We’ll use it to connect to the server and output some version and status information:
