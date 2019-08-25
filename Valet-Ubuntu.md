@@ -22,7 +22,7 @@ sudo apt update && sudo apt upgrade
 ###### Install PHP
 
 ```bash
-sudo apt -y install php* php*-cgi php*-common php*-mbstring php*-xml php*-gd php*-opcache php*-fpm php*-zip php*-curl php*-json php*-bcmath php*-readline php*-cli
+sudo apt -y install php* php*-cgi php*-common php*-mbstring php*-mysql php*-xml php*-gd php*-opcache php*-fpm php*-zip php*-curl php*-json php*-bcmath php*-readline php*-cli
 ```
 
 ## Installation Composer
