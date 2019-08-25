@@ -9,15 +9,17 @@ Also, make sure that your system isn’t running any programs that bind port 80 
 sudo apt-get install libnss3-tools jq xsel zip unzip curl git
 ```
 
-## Install PHP and PHP Packages
+## PHP and PHP Packages
 
-Run the commands below to add third-party repository to upgrade to PHP 7.3 (if required)
+###### (Optional For PHP v7.3) Run the commands below to add third-party repository to upgrade to PHP 7.3
 
 ```shell
 sudo apt-get install software-properties-common
 sudo add-apt-repository ppa:ondrej/php
 sudo apt update && sudo apt upgrade
 ```
+
+###### Install PHP
 
 ```bash
 sudo apt -y install php* php*-cgi php*-common php*-mbstring php*-xml php*-gd php*-opcache php*-fpm php*-zip php*-curl php*-json php*-bcmath php*-readline php*-cli
