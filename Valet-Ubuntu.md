@@ -1,15 +1,15 @@
-## Valet Ubuntu
+# Valet Ubuntu
 It was initially available only for iOS, but today with the help of a third party package, we can install Valet on Ubuntu.
 
 Also, make sure that your system isn’t running any programs that bind port 80 (like Apache or Nginx).
 
-## Dependencies and packages:
+# Dependencies and packages:
 
 ```bash
 sudo apt-get install libnss3-tools jq xsel zip unzip curl git
 ```
 
-## PHP and PHP Packages
+# PHP and PHP Packages
 
 ###### (Optional For PHP v7.3) Run the commands below to add third-party repository to upgrade to PHP 7.3
 
@@ -25,7 +25,7 @@ sudo apt update && sudo apt upgrade
 sudo apt -y install php* php*-cgi php*-common php*-mbstring php*-mysql php*-xml php*-gd php*-opcache php*-fpm php*-zip php*-curl php*-json php*-bcmath php*-readline php*-cli
 ```
 
-## Installation Composer
+# Installation Composer
 <ul>
 <li> Command-line installation
 
@@ -53,7 +53,7 @@ sudo mv composer.phar /usr/local/bin/composer
 </ul>
 
 
-## Valet installation
+# Valet installation
 <ul>
 <li>Finally, require the package valet
 
@@ -82,3 +82,26 @@ valet install
 <li>Open http://blog.test in your browser.</li>
 
 </ul>
+
+# Sharing Sites
+Valet even includes a command to share your local sites with the world. No additional software installation is required once Valet is installed.
+
+To share a site, navigate to the site's directory in your terminal and run the <code>valet share</code> command. A publicly accessible URL will be inserted into your clipboard and is ready to paste directly into your browser. That's it.
+
+To stop sharing your site, hit <code>Control + C</code> to cancel the process.
+
+# Other Valet Commands
+
+<code>valet forget</code>	Run this command from a "parked" directory to remove it from the parked directory list.
+
+<code>valet log</code>	View a list of logs which are written by Valet's services.
+
+<code>valet paths</code>	View all of your "parked" paths.
+
+<code>valet restart</code>	Restart the Valet daemon.
+
+<code>valet start</code>	Start the Valet daemon.
+
+<code>valet stop</code>	Stop the Valet daemon.
+
+<code>valet uninstall</code>	Uninstall the Valet daemon.
