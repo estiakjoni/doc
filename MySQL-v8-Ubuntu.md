@@ -80,6 +80,12 @@ In this example, you can see that the root user does in fact authenticate using 
 Then, run FLUSH PRIVILEGES which tells the server to reload the grant tables and put your new changes into effect:
 <pre>FLUSH PRIVILEGES;</pre>
 
+Set MySQL sever time zone:
+
+```shell
+SET GLOBAL time_zone = '+2:00';
+```
+
 
 Once you confirm this on your own server, you can exit the MySQL shell:
 <pre>exit</pre>
