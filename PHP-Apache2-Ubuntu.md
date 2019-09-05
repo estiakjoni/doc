@@ -92,7 +92,7 @@ echo '<?php phpinfo(); ?>' > /var/www/html/info.php
 Hit: http://localhost/info.php
 
 
-# Oprional For PHP
+# Optional For PHP
 
 ## Show the List of Installed Packages on Ubuntu or Debian
 <ul>
