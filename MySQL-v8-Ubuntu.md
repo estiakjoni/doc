@@ -98,3 +98,29 @@ mysqladmin is a command line administrative client for MySQL. We’ll use it to 
 ```shell
 mysqladmin -u root -p version
 ```
+
+# Change port
+
+Open mysql config
+
+```shell
+sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf
+```
+
+Add following lines
+
+```text
+[mysqld]
+pid-file        = /var/run/mysqld/mysqld.pid
+socket          = /var/run/mysqld/mysqld.sock
+datadir         = /var/lib/mysql
+log-error       = /var/log/mysql/error.log
+bind-address    = 0.0.0.0
+port            = 6969
+```
+
+Restart mysql
+
+```shell
+service mysql restart
+```
