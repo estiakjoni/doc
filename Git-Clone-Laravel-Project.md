@@ -53,3 +53,8 @@ After setup .env file and composer To speed up the website. Make config cache.
 ```bash
  php artisan config:cache
 ```
+
+
+## Permission (optional)
+sudo chown -R www-data: storage/
+sudo chown -R www-data: public/
