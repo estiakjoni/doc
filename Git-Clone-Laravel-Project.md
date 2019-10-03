@@ -56,5 +56,7 @@ After setup .env file and composer To speed up the website. Make config cache.
 
 
 ## Permission (optional)
+```shell
 sudo chown -R www-data: storage/
 sudo chown -R www-data: public/
+```
