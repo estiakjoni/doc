@@ -204,6 +204,42 @@ server {
 }
 ```
 
+**For Laravel App host** Doc [https://laravel.com/docs/master/deployment#nginx](https://laravel.com/docs/master/deployment#nginx)
+
+```nginx
+server {
+        listen 80;
+        server_name example.com;
+        root /var/www/example.com/html/public;
+        
+        add_header X-Frame-Options "SAMEORIGIN";
+        add_header X-XSS-Protection "1; mode=block";
+        add_header X-Content-Type-Options "nosniff";
+        
+        index index.html index.htm index.php;
+        
+        charset utf-8;
+
+        location / {
+                try_files $uri $uri/ /index.php?$query_string;
+        }
+        
+        error_page 404 /index.php;
+
+        location ~ \.php$ {
+                include snippets/fastcgi-php.conf;
+                fastcgi_pass unix:/var/run/php/php7.3-fpm.sock;
+                fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+                include fastcgi_params;
+        }
+
+        location ~ /\.(?!well-known).* {
+                deny all;
+        }
+}
+```
+
+
 Here’s what each of these directives and location blocks do:
 
 <ul>
