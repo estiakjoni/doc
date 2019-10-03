@@ -204,7 +204,7 @@ server {
 }
 ```
 
-**For Laravel App host** Doc [https://laravel.com/docs/master/deployment#nginx](https://laravel.com/docs/master/deployment#nginx)
+**For Laravel App host** [https://laravel.com/docs/master/deployment#nginx](https://laravel.com/docs/master/deployment#nginx)
 
 ```nginx
 server {
