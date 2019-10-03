@@ -25,13 +25,13 @@ mv composer.phar /usr/local/bin/composer
 
 **For Mac**
 ```shell
-echo 'export PATH="$HOME/.composer/vendor/bin:$PATH"' > ~/.bashrc
+echo 'export PATH="$HOME/.composer/vendor/bin:$PATH"' >> ~/.bashrc
 source ~/.bashrc
 ```
 
 **For Ubuntu 18.04**
 
 ```shell
-echo 'export PATH="~/.config/composer/vendor/bin:$PATH"' > ~/.bashrc
+echo 'export PATH="~/.config/composer/vendor/bin:$PATH"' >> ~/.bashrc
 source ~/.bashrc
 ```
