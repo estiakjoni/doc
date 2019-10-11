@@ -11,17 +11,25 @@ We’ll use the **/etc/ssl/certs** directory on the server to hold the origin ce
 
 First, copy the contents of the **Origin Certificate** displayed in the dialog box in your browser.
 
+Create folder for Certificate and KEY
+
+```shell
+sudo mkdir /etc/ssl/certs/example.com
+sudo mkdir /etc/ssl/private/example.com
+```
+
+
 Then, on your server, open **/etc/ssl/certs/cert.pem** for editing:
 
 ```shell
-sudo nano /etc/ssl/certs/cert.pem
+sudo nano /etc/ssl/certs/example.com/cert.pem
 ```
 Paste the certificate contents into the file. Then save and exit the editor.
 
 Then return to your browser and copy the contents of the **Private key**. Open the file **/etc/ssl/private/key.pem** for editing:
 
 ```shell
-sudo nano /etc/ssl/private/key.pem
+sudo nano /etc/ssl/private/example.com/key.pem
 ```
 Paste the key into the file, save the file, and exit the editor.
 
@@ -262,8 +270,8 @@ server {
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
     ssl        on;
-    ssl_certificate         /etc/ssl/certs/cert.pem;
-    ssl_certificate_key     /etc/ssl/private/key.pem;
+    ssl_certificate         /etc/ssl/certs/example.com/cert.pem;
+    ssl_certificate_key     /etc/ssl/private/example.com/key.pem;
 
     server_name example.com www.example.com;
 
@@ -354,7 +362,7 @@ You can also download the certificate directly from Cloudflare here.
 Copy this certificate. Then create the file <code>/etc/ssl/certs/cloudflare.crt</code> file to hold Cloudflare’s certificate:
 
 ```shell
-sudo nano /etc/ssl/certs/cloudflare.crt
+sudo nano /etc/ssl/certs/example.com/cloudflare.crt
 ```
 Paste the certificate into the file. Then save the file and exit the editor.
 
@@ -376,9 +384,9 @@ server {
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
     ssl        on;
-    ssl_certificate         /etc/ssl/certs/cert.pem;
-    ssl_certificate_key     /etc/ssl/private/key.pem;
-    ssl_client_certificate /etc/ssl/certs/cloudflare.crt;
+    ssl_certificate         /etc/ssl/certs/example.com/cert.pem;
+    ssl_certificate_key     /etc/ssl/private/example.com/key.pem;
+    ssl_client_certificate  /etc/ssl/certs/example.com/cloudflare.crt;
     ssl_verify_client on;
 
     . . .
