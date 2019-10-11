@@ -359,7 +359,7 @@ s0s5dsq5zpLeaw==
 You can also download the certificate directly from Cloudflare here.
 [https://support.cloudflare.com/hc/en-us/article_attachments/201243967/origin-pull-ca.pem](https://support.cloudflare.com/hc/en-us/article_attachments/201243967/origin-pull-ca.pem)
 
-Copy this certificate. Then create the file <code>/etc/ssl/certs/cloudflare.crt</code> file to hold Cloudflare’s certificate:
+Copy this certificate. Then create the file **/etc/ssl/certs/example.com/cloudflare.crt** file to hold Cloudflare’s certificate:
 
 ```shell
 sudo nano /etc/ssl/certs/example.com/cloudflare.crt
