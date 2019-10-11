@@ -269,14 +269,15 @@ server {
 
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
-    ssl        on;
     ssl_certificate         /etc/ssl/certs/example.com/cert.pem;
     ssl_certificate_key     /etc/ssl/private/example.com/key.pem;
 
     server_name example.com www.example.com;
 
     root /var/www/example.com/html;
-    index index.html index.htm index.nginx-debian.html;
+    index index.php index.html index.htm;
+
+    charset utf-8;
 
 
     location / {
