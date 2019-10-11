@@ -376,7 +376,12 @@ sudo nano /etc/nginx/sites-available/example.com
 Add the **ssl_client_certificate** and **ssl_verify_client** directives as shown in the following example:
 
 ```nginx
-. . .
+server {
+    listen 80;
+    listen [::]:80;
+    server_name example.com www.example.com;
+    return 302 https://$server_name$request_uri;
+}
 
 server {
 
@@ -384,13 +389,23 @@ server {
 
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
-    ssl        on;
     ssl_certificate         /etc/ssl/certs/example.com/cert.pem;
     ssl_certificate_key     /etc/ssl/private/example.com/key.pem;
     ssl_client_certificate  /etc/ssl/certs/example.com/cloudflare.crt;
     ssl_verify_client on;
 
-    . . .
+    server_name example.com www.example.com;
+
+    root /var/www/example.com/html;
+    index index.php index.html index.htm;
+
+    charset utf-8;
+
+
+    location / {
+            try_files $uri $uri/ =404;
+    }
+}
 ```
 
 Save the file and exit the editor.
