@@ -208,37 +208,88 @@ server {
 
 ```nginx
 server {
-        listen 80;
-        server_name example.com;
-        root /var/www/example.com/html/public;
-        
-        add_header X-Frame-Options "SAMEORIGIN";
-        add_header X-XSS-Protection "1; mode=block";
-        add_header X-Content-Type-Options "nosniff";
-        
-        index index.html index.htm index.php;
-        
-        charset utf-8;
+    listen 80;
+    server_name example.com;
+    root /var/www/example.com/html/public;
+    
+    index index.html index.htm index.php;
+    
+    charset utf-8;
 
-        location / {
-                try_files $uri $uri/ /index.php?$query_string;
-        }
-        
-        error_page 404 /index.php;
+    add_header X-Frame-Options "SAMEORIGIN";
+    add_header X-XSS-Protection "1; mode=block";
+    add_header X-Content-Type-Options "nosniff";
 
-        location ~ \.php$ {
-                include snippets/fastcgi-php.conf;
-                fastcgi_pass unix:/var/run/php/php7.3-fpm.sock;
-                fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
-                include fastcgi_params;
-        }
+    location / {
+            try_files $uri $uri/ /index.php?$query_string;
+    }
+    
+    error_page 404 /index.php;
 
-        location ~ /\.(?!well-known).* {
-                deny all;
-        }
+    location ~ \.php$ {
+            include snippets/fastcgi-php.conf;
+            fastcgi_pass unix:/var/run/php/php7.3-fpm.sock;
+            fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+            include fastcgi_params;
+    }
+
+    location ~ /\.(?!well-known).* {
+            deny all;
+    }
 }
 ```
 
+**HTTPS Laravel App**
+
+```nginx
+server {
+    listen 80;
+    listen [::]:80;
+    server_name example.com www.example.com;
+    return 302 https://$server_name$request_uri;
+}
+
+server {
+
+    # SSL configuration
+
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    ssl_certificate         /etc/ssl/certs/example.com/cert.pem;
+    ssl_certificate_key     /etc/ssl/private/example.com/key.pem;
+    ssl_client_certificate  /etc/ssl/certs/example.com/cloudflare.crt;
+    ssl_verify_client on;
+
+    server_name example.com www.example.com;
+
+    root /var/www/example.com/html/public;
+    index index.php index.html index.htm;
+
+    charset utf-8;
+    
+    add_header X-Frame-Options "SAMEORIGIN";
+    add_header X-XSS-Protection "1; mode=block";
+    add_header X-Content-Type-Options "nosniff";
+
+
+    location / {
+            try_files $uri $uri/ /index.php?$query_string;
+    }
+    
+    error_page 404 /index.php;
+
+    location ~ \.php$ {
+            include snippets/fastcgi-php.conf;
+            fastcgi_pass unix:/var/run/php/php7.3-fpm.sock;
+            fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+            include fastcgi_params;
+    }
+
+    location ~ /\.(?!well-known).* {
+            deny all;
+    }
+}
+```
 
 Here’s what each of these directives and location blocks do:
 
