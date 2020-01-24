@@ -105,8 +105,23 @@ mysqladmin is a command line administrative client for MySQL. We’ll use it to 
 mysqladmin -u root -p version
 ```
 
+# Create a database
 
-# Create User
+```shell
+CREATE DATABASE dbname;
+```
+
+Grant new database privilege to a user
+
+```shell
+GRANT ALL ON dbname.* TO 'user';
+```
+
+```shell
+FLUSH PRIVILEGES;
+```
+
+# Create a user and privilege
 MySQL 8.0 default authentication plugin is caching_sha2_password rather than mysql_native_password, which is the default method in MySQL 5.7 and prior. But CREATE or ALTER your database user to mysql_native_password with the command shown below:
 
 ```shell
@@ -126,6 +141,13 @@ GRANT ALL ON dbname.* TO 'tankibaj';
 ```shell
 FLUSH PRIVILEGES;
 ```
+
+# Drop user
+
+```shell
+drop user tankibaj
+```
+
 
 # Change port
 
