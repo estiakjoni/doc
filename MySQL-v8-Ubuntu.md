@@ -145,7 +145,7 @@ FLUSH PRIVILEGES;
 # Drop user
 
 ```shell
-drop user tankibaj
+drop user tankibaj;
 ```
 
 
