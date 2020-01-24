@@ -1,14 +1,8 @@
 # Adding the MySQL Software Repository
-Now we’re going to download the file. On your server, move to a directory you can write to:
+Now we’re going to download the repository.
 
 ```shell
-cd /tmp
-```
-
-Download the file using curl, remembering to paste the address you just copied in place of the highlighted portion below:
-
-```shell
-curl -OL https://repo.mysql.com//mysql-apt-config_0.8.13-1_all.deb
+cd /tmp && curl -OL https://repo.mysql.com//mysql-apt-config_0.8.13-1_all.deb
 ```
 
 Now we’re ready to install. Note that in the package installation process, you will be prompted to choose MySQL server version and other components such as cluster, shared client libraries, or the MySQL workbench that you want to configure for installation.
@@ -40,50 +34,62 @@ sudo apt install mysql-server
 MySQL should now be installed and running. Let’s check using systemctl
 
 ```shell
-systemctl status mysql
+sudo systemctl status mysql
 ```
 
 # Securing MySQL
 MySQL comes with a command we can use to perform a few security-related updates on our new install. Let’s run it now:
 
 ```shell
-mysql_secure_installation
+sudo mysql_secure_installation
+
+# Would you like to setup VALIDATE PASSWORD plugin? N
+# Please set the password for root here.
+# New password: **********************
+# Re-enter new password: **********************
+# Remove anonymous users? Y
+# Disallow root login remotely? N
+# Remove test database and access to it? Y
+# Reload privilege tables now? Y
+
+# Success.
+
+# All done!
 ```
-This will ask you for the MySQL root password that you set during installation. Type it in and press <code>ENTER</code>.
-
-Now we’ll answer a series of yes or no prompts. Let’s go through them:
-
-First, we are asked about the validate password plugin, a plugin that can automatically enforce certain password strength rules for your MySQL users. Enabling this is a decision you’ll need to make based on your individual security needs. Type <code>y</code> and <code>ENTER</code> to enable it, or just hit <code>ENTER</code> to skip it. If enabled, you will also be prompted to choose a level from 0–2 for how strict the password validation will be. Choose a number and hit <code>ENTER</code> to continue.
-
-Next you’ll be asked if you want to change the root password. Since we just created the password when we installed MySQL, we can safely skip this. Hit ENTER to continue without updating the password.
-
-The rest of the prompts can be answered yes. You will be asked about removing the anonymous MySQL user, disallowing remote root login, removing the test database, and reloading privilege tables to ensure the previous changes take effect properly. These are all a good idea. Type y and hit ENTER for each.
-
-The script will exit after all the prompts are answered. Now our MySQL installation is reasonably secured. Let’s test it again by running a client that connects to the server and returns some information.
-
-Open up the MySQL prompt from your terminal:
+Connect to the MySQL shell as the root user.
 
 ```bash
 sudo mysql -u root -p
+# Enter password
 ```
 
 Next, check which authentication method each of your MySQL user accounts use with the following command:
 
-<pre>SELECT user,authentication_string,plugin,host FROM mysql.user;</pre>
+```shell
+SELECT user,authentication_string,plugin,host FROM mysql.user;
+```
 
+MySQL 8 default authentication plugin is caching_sha2_password. To change root user plugin to mysql_native_password, run the following ALTER USER command. Be sure to change password to a strong password of your choosing:
 
-In this example, you can see that the root user does in fact authenticate using the auth_socket plugin. To configure the root account to authenticate with a password, run the following ALTER USER command. Be sure to change password to a strong password of your choosing:
+```shell
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '123123';</pre>
+```
 
-<pre>ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '123123';</pre>
+By default MySQL 8 root user can acccess from only localhost. If you want to access it from any host then run:
 
+```shell
+UPDATE mysql.user SET host='%' WHERE user='root';
+```
 
 Then, run FLUSH PRIVILEGES which tells the server to reload the grant tables and put your new changes into effect:
-<pre>FLUSH PRIVILEGES;</pre>
+```shell
+FLUSH PRIVILEGES;
+```
 
 Set MySQL sever time zone:
 
 ```shell
-SET GLOBAL time_zone = '+2:00';
+SET GLOBAL time_zone = '+1:00';
 ```
 
 
@@ -97,6 +103,28 @@ mysqladmin is a command line administrative client for MySQL. We’ll use it to 
 
 ```shell
 mysqladmin -u root -p version
+```
+
+
+# Create User
+MySQL 8.0 default authentication plugin is caching_sha2_password rather than mysql_native_password, which is the default method in MySQL 5.7 and prior. But CREATE or ALTER your database user to mysql_native_password with the command shown below:
+
+```shell
+CREATE USER 'tankibaj'@'%' IDENTIFIED WITH mysql_native_password BY 'password';
+```
+Grant all databases privilege to new user
+
+```shell
+GRANT ALL PRIVILEGES ON * . * TO 'tankibaj';
+```
+Or Grant privilege to selected database
+
+```shell
+GRANT ALL ON dbname.* TO 'tankibaj';
+```
+
+```shell
+FLUSH PRIVILEGES;
 ```
 
 # Change port
@@ -124,3 +152,4 @@ Restart mysql
 ```shell
 service mysql restart
 ```
+
