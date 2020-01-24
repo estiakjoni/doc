@@ -72,7 +72,7 @@ SELECT user,authentication_string,plugin,host FROM mysql.user;
 MySQL 8 default authentication plugin is caching_sha2_password. To change root user plugin to mysql_native_password, run the following ALTER USER command. Be sure to change password to a strong password of your choosing:
 
 ```shell
-ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '123123';</pre>
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '123123';
 ```
 
 By default MySQL 8 root user can acccess from only localhost. If you want to access it from any host then run:
