@@ -206,7 +206,7 @@ Change ownership of the `/var/www/shopware` directory to `shopware`
 sudo chown -R shopware:shopware /var/www/shopware
 ```
 
-Download the [latest release of Shopware](https://en-community.shopware.com/Downloads_cat_725.html).
+Download the [latest release of Shopware](https://www.shopware.com/en/download/).
 
 ```bash
 cd /var/www/shopware
