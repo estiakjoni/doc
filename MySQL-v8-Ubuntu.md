@@ -114,7 +114,7 @@ CREATE DATABASE dbname;
 Grant new database privilege to a user
 
 ```shell
-GRANT ALL ON dbname.* TO 'user';
+GRANT ALL ON dbname.* TO 'user'@'localhost';
 ```
 
 ```shell
@@ -130,12 +130,12 @@ CREATE USER 'tankibaj'@'%' IDENTIFIED WITH mysql_native_password BY 'password';
 Grant all databases privilege to new user
 
 ```shell
-GRANT ALL PRIVILEGES ON * . * TO 'tankibaj';
+GRANT ALL PRIVILEGES ON * . * TO 'tankibaj'@'%';
 ```
 Or Grant privilege to selected database
 
 ```shell
-GRANT ALL ON dbname.* TO 'tankibaj';
+GRANT ALL ON dbname.* TO 'tankibaj'@'%';
 ```
 
 ```shell
