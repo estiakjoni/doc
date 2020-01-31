@@ -108,4 +108,4 @@ Now check your json api http://pimhw.test/product. It will show all the data fro
 
 ## Conclusion
 
-We have typed 9 lines code and 7 lines command. 
+We have typed 9 lines code and 6 lines command. 
