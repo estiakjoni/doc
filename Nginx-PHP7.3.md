@@ -245,16 +245,15 @@ server {
 Create your_domain name directory for certificate and private key
 
 ```shell
-sudo mkdir /etc/ssl/certs/your_domain && sudo mkdir /etc/ssl/private/your_domain
+sudo mkdir -p /etc/nginx/ssl/your_domain
 ```
 
-
-Next, add certificate, private key and provide certificate (This tutorial we are using cloudflare ssl).
+Next, add certificate, private key and authenticated origin pulls certificate (This tutorial we are using cloudflare ssl).
 
 ```shell
-sudo nano /etc/ssl/certs/your_domain/cert.crt
-sudo nano /etc/ssl/private/your_domain/key.pem
-sudo nano /etc/ssl/certs/your_domain/cloudflare.crt
+sudo nano /etc/nginx/ssl/your_domain/cert.crt
+sudo nano /etc/nginx/ssl/your_domain/key.pem
+sudo wget --no-check-certificate 'https://support.cloudflare.com/hc/en-us/article_attachments/360044928032/origin-pull-ca.pem' -O /etc/nginx/ssl/your_domain/cloudflare.crt
 ```
 
 Now, Create new server block for you domain
