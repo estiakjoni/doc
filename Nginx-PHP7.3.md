@@ -140,35 +140,21 @@ Add ondrej/php which has PHP 7.3 package and other required PHP extensions.
 
 
 ```shell
-sudo add-apt-repository ppa:ondrej/php
-sudo apt-get update
+sudo add-apt-repository ppa:ondrej/php && sudo apt-get update
 ```
 This PPA can be added to your system manually by copying the lines below and adding them to your system’s software sources.
 
-## Step 2: Install PHP 7.3
+## Step 2: Install PHP 7.3 & Extensions
 Once the PPA repository has been added, install php 7.3 on your Ubuntu/Debian.
 
 ```shell
-sudo apt-get install php7.3
+sudo apt install php7.3 php7.3-common php7.3-cli php7.3-fpm php7.3-json php7.3-mysql php7.3-zip php7.3-gd  php7.3-mbstring php7.3-curl php7.3-xml php7.3-bcmath php7.3-json
 ```
 
 Check version installed
 
 ```shell
 php -v
-```
-
-## Step 3: Installing PHP 7.3 Extensions
-Install PHP 7.3 extensions by using the syntax.
-
-```shell
-sudo apt-get install php7.3-<entension-name>
-```
-
-Install common php extensions
-
-```shell
-sudo apt install php7.3-common php7.3-cli php7.3-fpm php7.3-json php7.3-pdo php7.3-mysql php7.3-zip php7.3-gd  php7.3-mbstring php7.3-curl php7.3-xml php7.3-bcmath php7.3-json
 ```
 
 # Configuring Nginx to Use the PHP Processor
