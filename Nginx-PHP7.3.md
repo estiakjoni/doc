@@ -261,6 +261,7 @@ Now, Create new server block for you domain
 sudo nano /etc/nginx/sites-available/your_domain
 ```
 
+Rewrite extension less:
 
 ```nginx
 server {
@@ -276,9 +277,61 @@ server {
 
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
-    ssl_certificate         /etc/ssl/certs/your_domain/cert.crt;
-    ssl_certificate_key     /etc/ssl/private/your_domain/key.pem;
-    ssl_client_certificate  /etc/ssl/certs/your_domain/cloudflare.crt;
+    ssl_certificate         /etc/nginx/ssl/your_domain/cert.crt;
+    ssl_certificate_key     /etc/nginx/ssl/your_domain/key.pem;
+    ssl_client_certificate  /etc/nginx/ssl/your_domain/cloudflare.crt;
+    ssl_verify_client on;
+
+    server_name example.com www.example.com;
+    root /var/www/your_domain;
+
+    charset utf-8;
+    
+    add_header X-Frame-Options "SAMEORIGIN";
+    add_header X-XSS-Protection "1; mode=block";
+    add_header X-Content-Type-Options "nosniff";
+
+
+    location / {
+		    try_files $uri $uri/ @extensionless-php;
+		    index index.html index.htm index.php;
+    }
+    
+
+    location ~ \.php$ {
+         include snippets/fastcgi-php.conf;
+         fastcgi_pass unix:/var/run/php/php7.3-fpm.sock;
+         fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+         include fastcgi_params;
+    }
+
+	location @extensionless-php {
+			rewrite ^(.*)$ $1.php last;
+	}
+
+}
+```
+
+For Laravel App host: [https://laravel.com/docs/master/deployment#nginx](https://laravel.com/docs/master/deployment#nginx)
+
+
+```nginx
+server {
+    listen 80;
+    listen [::]:80;
+    server_name example.com www.example.com;
+    return 302 https://$server_name$request_uri;
+}
+
+server {
+
+    # SSL configuration
+
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    ssl_certificate         /etc/nginx/ssl/your_domain/cert.crt;
+    ssl_certificate_key     /etc/nginx/ssl/your_domain/key.pem;
+    ssl_client_certificate  /etc/nginx/ssl/your_domain/cloudflare.crt;
     ssl_verify_client on;
 
     server_name example.com www.example.com;
