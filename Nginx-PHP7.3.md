@@ -252,7 +252,7 @@ server {
 
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
-    ssl_certificate         /etc/ssl/certs/your_domain/cert.pem;
+    ssl_certificate         /etc/ssl/certs/your_domain/cert.crt;
     ssl_certificate_key     /etc/ssl/private/your_domain/key.pem;
     ssl_client_certificate  /etc/ssl/certs/your_domain/cloudflare.crt;
     ssl_verify_client on;
