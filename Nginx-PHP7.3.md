@@ -293,8 +293,8 @@ server {
 
 
     location / {
-		    try_files $uri $uri/ @extensionless-php;
-		    index index.html index.htm index.php;
+         try_files $uri $uri/ @extensionless-php;
+	 index index.html index.htm index.php;
     }
     
 
