@@ -176,6 +176,8 @@ By editing a new server block configuration file, rather than editing the defaul
 
 Add the following content, which was taken and slightly modified from the default server block configuration file, to your new server block configuration file:
 
+** HTTP 80**
+
 ```nginx
 server {
         listen 80;
@@ -198,7 +200,7 @@ server {
 }
 ```
 
-**For Laravel App host** [https://laravel.com/docs/master/deployment#nginx](https://laravel.com/docs/master/deployment#nginx)
+For Laravel App host: [https://laravel.com/docs/master/deployment#nginx](https://laravel.com/docs/master/deployment#nginx)
 
 ```nginx
 server {
@@ -236,7 +238,22 @@ server {
 }
 ```
 
-**HTTPS Laravel App**
+**HTTPS 443**
+Create your_domain name directory for certificate and private key
+
+```shell
+sudo mkdir /etc/ssl/certs/your_domain && sudo mkdir /etc/ssl/private/your_domain
+```
+
+
+Next, add certificate, private key and provide certificate (This tutorial we are using cloudflare ssl).
+
+```shell
+sudo nano /etc/ssl/certs/your_domain/cert.crt
+sudo nano /etc/ssl/private/your_domain/key.pem
+sudo nano /etc/ssl/certs/your_domain/cloudflare.crt
+```
+
 
 ```nginx
 server {
@@ -287,6 +304,7 @@ server {
     }
 }
 ```
+
 
 Here’s what each of these directives and location blocks do:
 
