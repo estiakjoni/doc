@@ -255,6 +255,11 @@ sudo nano /etc/ssl/private/your_domain/key.pem
 sudo nano /etc/ssl/certs/your_domain/cloudflare.crt
 ```
 
+Now, Create new server block for you domain
+```shell
+sudo nano /etc/nginx/sites-available/your_domain
+```
+
 
 ```nginx
 server {
