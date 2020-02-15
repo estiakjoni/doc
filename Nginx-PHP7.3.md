@@ -157,6 +157,11 @@ Check version installed
 php -v
 ```
 
+Check php configuration files
+```shell
+php --ini
+```
+
 # Configuring Nginx to Use the PHP Processor
 You now have Nginx installed to serve your pages. However, you still don’t have anything that can generate dynamic content. This is where PHP comes into play.
 
