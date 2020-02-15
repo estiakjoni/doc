@@ -176,7 +176,7 @@ By editing a new server block configuration file, rather than editing the defaul
 
 Add the following content, which was taken and slightly modified from the default server block configuration file, to your new server block configuration file:
 
-** HTTP 80**
+**HTTP 80**
 
 ```nginx
 server {
@@ -239,6 +239,7 @@ server {
 ```
 
 **HTTPS 443**
+
 Create your_domain name directory for certificate and private key
 
 ```shell
