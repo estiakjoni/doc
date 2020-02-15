@@ -82,18 +82,21 @@ Nginx on Ubuntu 18.04 has one server block enabled by default that is configured
 Create the directory for **example.com** as follows, using the **-p** flag to create any necessary parent directories:
 
 ```shell
-sudo mkdir -p /var/www/example.com/html
+sudo mkdir /var/www/your_domain
 ```
-Next, assign ownership of the directory with the $USER environment variable:
+Next, assign current user as root web directory owner and read only permisson to nginx www-data group. $USER is environment variable, which should reference your current system user.
 
 ```shell
-sudo chown -R $USER:$USER /var/www/example.com/html
-```
+sudo chown -R $USER /var/www/your_domain
+sudo chgrp -R www-data /var/www/your_domain
+sudo chmod -R 750 /var/www/your_domain
+sudo chmod g+s /var/www/your_domain
 
-The permissions of your web roots should be correct if you haven’t modified your umask value, but you can make sure by typing:
+# If need nginx write permission for a folder. Ex: uploads
+sudo chmod g+w /var/www/your_domain/uploads
 
-```shell
-sudo chmod -R 755 /var/www/example.com
+# To check permission
+ls -l
 ```
 
 To avoid a possible hash bucket memory problem that can arise from adding additional server names, it is necessary to adjust a single value in the <code>/etc/nginx/nginx.conf</code> file. Open the file:
@@ -176,7 +179,7 @@ Since Nginx does not contain native PHP processing like some other web servers, 
 This is done on the server block level (server blocks are similar to Apache’s virtual hosts). To do this, open a new server block configuration file within the <code>/etc/nginx/sites-available/</code> directory. In this example, the new server block configuration file is named <code>example.com</code>, although you can name yours whatever you’d like:
 
 ```shell
-sudo nano /etc/nginx/sites-available/example.com
+sudo nano /etc/nginx/sites-available/your_domain
 ```
 By editing a new server block configuration file, rather than editing the default one, you’ll be able to easily restore the default configuration if you ever need to.
 
@@ -185,7 +188,7 @@ Add the following content, which was taken and slightly modified from the defaul
 ```nginx
 server {
         listen 80;
-        root /var/www/example.com/html;
+        root /var/www/your_domain;
         index index.php index.html index.htm index.nginx-debian.html;
         server_name example.com;
 
@@ -210,7 +213,7 @@ server {
 server {
     listen 80;
     server_name example.com;
-    root /var/www/example.com/html/public;
+    root /var/www/your_domain/public;
 
     add_header X-Frame-Options "SAMEORIGIN";
     add_header X-XSS-Protection "1; mode=block";
@@ -258,14 +261,14 @@ server {
 
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
-    ssl_certificate         /etc/ssl/certs/example.com/cert.pem;
-    ssl_certificate_key     /etc/ssl/private/example.com/key.pem;
-    ssl_client_certificate  /etc/ssl/certs/example.com/cloudflare.crt;
+    ssl_certificate         /etc/ssl/certs/your_domain/cert.pem;
+    ssl_certificate_key     /etc/ssl/private/your_domain/key.pem;
+    ssl_client_certificate  /etc/ssl/certs/your_domain/cloudflare.crt;
     ssl_verify_client on;
 
     server_name example.com www.example.com;
 
-    root /var/www/example.com/html/public;
+    root /var/www/your_domain/public;
     index index.php index.html index.htm;
 
     charset utf-8;
@@ -323,7 +326,7 @@ Here’s what each of these directives and location blocks do:
 After adding this content, save and close the file. Enable your new server block by creating a symbolic link from your new server block configuration file (in the <code>/etc/nginx/sites-available/</code> directory) to the <code>/etc/nginx/sites-enabled/</code> directory:
 
 ```shell
-sudo ln -s /etc/nginx/sites-available/example.com /etc/nginx/sites-enabled/
+sudo ln -s /etc/nginx/sites-available/your_domain /etc/nginx/sites-enabled/
 ```
 
 Then, unlink the default configuration file from the /sites-enabled/ directory:
@@ -382,5 +385,5 @@ If you see a page that looks like this, you’ve set up PHP processing with Ngin
 For now, remove the file by typing:
 
 ```shell
-sudo rm /var/www/example.com/html/info.php
+sudo rm /var/www/your_domain/info.php
 ```
