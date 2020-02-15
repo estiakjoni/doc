@@ -305,10 +305,9 @@ server {
          include fastcgi_params;
     }
 
-	location @extensionless-php {
-			rewrite ^(.*)$ $1.php last;
-	}
-
+    location @extensionless-php {
+         rewrite ^(.*)$ $1.php last;
+     }
 }
 ```
 
