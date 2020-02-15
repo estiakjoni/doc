@@ -167,16 +167,18 @@ You now have Nginx installed to serve your pages. However, you still don’t hav
 
 Since Nginx does not contain native PHP processing like some other web servers, you will need to install php-fpm, which stands for “fastCGI process manager”. We will tell Nginx to pass PHP requests to this software for processing.
 
-This is done on the server block level (server blocks are similar to Apache’s virtual hosts). To do this, open a new server block configuration file within the <code>/etc/nginx/sites-available/</code> directory. In this example, the new server block configuration file is named <code>example.com</code>, although you can name yours whatever you’d like:
+This is done on the server block level (server blocks are similar to Apache’s virtual hosts). To do this, open a new server block configuration file within the <code>/etc/nginx/sites-available/</code> directory. In this example, the new server block configuration file is named <code>example.com</code>, although you can name yours whatever you’d like.
 
-```shell
-sudo nano /etc/nginx/sites-available/your_domain
-```
 By editing a new server block configuration file, rather than editing the default one, you’ll be able to easily restore the default configuration if you ever need to.
 
 Add the following content, which was taken and slightly modified from the default server block configuration file, to your new server block configuration file:
 
 **HTTP 80**
+
+Now, Create new server block for you domain
+```shell
+sudo nano /etc/nginx/sites-available/your_domain
+```
 
 ```nginx
 server {
