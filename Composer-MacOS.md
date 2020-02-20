@@ -39,3 +39,19 @@ composer -V
 #Composer version 1.9.3 2020-02-04 12:58:49
 ```
 
+
+
+Add the `~/.composer/vendor/bin` directory in system's "PATH"
+
+If your PATH is in .zshrc file :
+
+```bash
+echo 'export PATH="$HOME/.composer/vendor/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc
+```
+
+If your PATH is in .bashrc file :
+
+```bash
+echo 'export PATH="$HOME/.composer/vendor/bin:$PATH"' >> ~/.bashrc && source ~/.bashrc
+```
+
