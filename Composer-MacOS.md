@@ -15,18 +15,11 @@ The PHP Composer is a package management tool. It removes the hassle of maintain
 
 ## 2. Install Composer on macOS
 
-Download composer binary file from getcomposer.org website by running the following command. It will create a composer.phar file in the current directory.
+Download composer.phar binary file from getcomposer.org website. Next, copy this composer.phar file under bin directory to make available anywhere in the system. Also, set the execute permission on file. I have changed the filename from composer.phar to composer for the easy use.
 
 ```bash
-curl -sS https://getcomposer.org/installer | php
-```
-
-
-
-Now, copy this composer.phar file under bin directory to make available anywhere in the system. Also, set the execute permission on file. I have changed the filename from composer.phar to composer for the easy use.
-
-```bash
-mv composer.phar /usr/local/bin/composer
+curl -sS https://getcomposer.org/installer | php && \
+mv composer.phar /usr/local/bin/composer && \
 chmod +x /usr/local/bin/composer
 ```
 
