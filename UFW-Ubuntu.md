@@ -25,7 +25,7 @@
 
 
 
-### Introduction
+## Introduction
 
 UFW or Uncomplicated Firewall, is an interface to <code>iptables</code> that is geared towards simplifying the process of configuring a firewall. While <code>iptables</code> is a solid and flexible tool, it can be difficult for beginners to learn how to use it to properly configure a firewall. If you’re looking to get started securing your network, and you’re not sure which tool to use, UFW may be the right choice for you.
 
@@ -37,7 +37,7 @@ sudo apt install ufw
 
 
 
-### Using IPv6
+## Using IPv6
 
 This tutorial is written with IPv4 in mind, but will work for IPv6 as well as long as you enable it. If your Ubuntu server has IPv6 enabled, ensure that UFW is configured to support IPv6 so that it will manage firewall rules for IPv6 in addition to IPv4. To do this, open the UFW configuration with nano or your favorite editor.
 
@@ -55,7 +55,7 @@ Save and close the file. Now, when UFW is enabled, it will be configured to writ
 
 
 
-### Setting Up Default Policies
+## Setting Up Default Policies
 
 If you’re just getting started with your firewall, the first rules to define are your default policies. These rules control how to handle traffic that does not explicitly match any other rules. By default, UFW is set to deny all incoming connections and allow all outgoing connections. This means anyone trying to reach your server would not be able to connect, while any application within the server would be able to reach the outside world.
 
@@ -70,7 +70,7 @@ These commands set the defaults to deny incoming and allow outgoing connections.
 
 
 
-### Allowing SSH Connections
+## Allowing SSH Connections
 
 If we enabled our UFW firewall now, it would deny all incoming connections. This means that we will need to create rules that explicitly allow legitimate incoming connections — SSH or HTTP connections, for example — if we want our server to respond to those types of requests. If you’re using a cloud server, you will probably want to allow incoming SSH connections so you can connect to and manage your server.
 
@@ -96,7 +96,7 @@ Now that your firewall is configured to allow incoming SSH connections, we can e
 
 
 
-### Enabling UFW
+## Enabling UFW
 
 To enable UFW, use this command:
 
@@ -109,7 +109,7 @@ The firewall is now active. Run the <code>sudo ufw status verbose</code> command
 
 
 
-### Allowing Other Connections
+## Allowing Other Connections
 
 At this point, you should allow all of the other connections that your server needs to respond to. The connections that you should allow depends on your specific needs. Luckily, you already know how to write rules that allow connections based on a service name or port; we already did this for SSH on port **22**. You can also do this for:
 
@@ -126,7 +126,7 @@ There are several others ways to allow other connections, aside from specifying 
 
 
 
-###### Specific Port Ranges
+#### Specific Port Ranges
 
 You can specify port ranges with UFW. Some applications use multiple ports, instead of a single port.
 
@@ -140,7 +140,7 @@ When specifying port ranges with UFW, you must specify the protocol (**tcp** or 
 
 
 
-###### Specific IP Addresses
+#### Specific IP Addresses
 
 When working with UFW, you can also specify IP addresses. For example, if you want to allow connections from a specific IP address, such as a work or home IP address of **203.0.113.4**, you need to specify **from**, then the IP address:
 
@@ -154,7 +154,7 @@ sudo ufw allow from 203.0.113.4 to any port 22
 ```
 
 
-###### Subnets
+#### Subnets
 
 If you want to allow a subnet of IP addresses, you can do so using CIDR notation to specify a netmask. For example, if you want to allow all of the IP addresses ranging from **203.0.113.1** to **203.0.113.254** you could use this command:
 
@@ -169,7 +169,7 @@ sudo ufw allow from 203.0.113.0/24 to any port 22
 
 
 
-###### Connections to a Specific Network Interface
+#### Connections to a Specific Network Interface
 
 If you want to create a firewall rule that only applies to a specific network interface, you can do so by specifying “allow in on” followed by the name of the network interface.
 
@@ -208,7 +208,7 @@ This would allow other servers on your private network to connect to your MySQL 
 
 
 
-### Denying Connections
+## Denying Connections
 
 If you haven’t changed the default policy for incoming connections, UFW is configured to deny all incoming connections. Generally, this simplifies the process of creating a secure firewall policy by requiring you to create rules that explicitly allow specific ports and IP addresses through.
 
@@ -231,13 +231,13 @@ Now let’s take a look at how to delete rules.
 
 
 
-### Deleting Rules
+## Deleting Rules
 
 Knowing how to delete firewall rules is just as important as knowing how to create them. There are two different ways to specify which rules to delete: by rule number or by the actual rule (similar to how the rules were specified when they were created). We’ll start with the **delete by rule number** method because it is easier.
 
 
 
-###### By Rule Number
+#### By Rule Number
 
 If you’re using the rule number to delete firewall rules, the first thing you’ll want to do is get a list of your firewall rules. The UFW status command has an option to display numbers next to each rule, as demonstrated here:
 
@@ -266,7 +266,7 @@ This would show a confirmation prompt then delete rule 2, which allows HTTP conn
 
 
 
-###### By Actual Rule
+#### By Actual Rule
 
 The alternative to rule numbers is to specify the actual rule to delete. For example, if you want to remove the **allow http** rule, you could write it like this:
 
@@ -283,7 +283,7 @@ This method will delete both IPv4 and IPv6 rules, if they exist.
 
 
 
-### Checking UFW Status and Rules
+## Checking UFW Status and Rules
 
 At any time, you can check the status of UFW with this command:
 
@@ -319,7 +319,7 @@ Use the <code>status</code> command if you want to check how UFW has configured 
 
 
 
-### Logging
+## Logging
 
 You can enable logging with the command:
 
@@ -385,7 +385,7 @@ The initial values list the date, time, and hostname of your Linode. Additional 
 
 
 
-### Understand UFW Log in details
+## Understand UFW Log in details
 
 UFW is just a front end for iptables, and so those log entries are actually from iptables.
 
@@ -433,7 +433,7 @@ TCP flags, the important one here is "SYN" meaning it it attempting to make a NE
 
 
 
-### Disabling or Resetting UFW
+## Disabling or Resetting UFW
 
 If you decide you don’t want to use UFW, you can disable it with this command:
 
