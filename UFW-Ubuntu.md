@@ -1,6 +1,40 @@
 # UFW on Ubuntu 18.04
+- [Introduction](#Introduction)
+- [Using-IPv6](#Using-IPv6)
+- [Setting Up Default Policies)](#Setting-Up-Default-Policies)
+- [Allowing SSH Connections](#Allowing-SSH-Connections)
+- [Enabling UFW](#Enabling-UFW)
+- [Allowing Other Connections](#Allowing-Other-Connections)
+    - [Specific Port Ranges](#Specific-Port-Ranges)
+    - [Specific IP Addresses](#Specific-IP-Addresses)
+    - [Subnets](#Subnets)
+    - [Connections to a Specific Network Interface](#Connections-to-a-Specific-Network-Interface)
 
-## Introduction
+- [Denying Connections](#Denying-Connections)
+
+
+- [Deleting Rules](#Deleting-Rules)
+    - [By Rule Number](#By-Rule-Number)
+    - [By Actual Rule](#By-Actual-Rule)
+- [Checking UFW Status and Rules](#Checking-UFW-Status-and-Rules)
+- [Logging](#Logging)
+- [Understand UFW Log in details](#Understand-UFW-Log-in-details)
+- [Disabling or Resetting UFW](#Disabling-or-Resetting-UFW)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Introduction
 
 UFW or Uncomplicated Firewall, is an interface to <code>iptables</code> that is geared towards simplifying the process of configuring a firewall. While <code>iptables</code> is a solid and flexible tool, it can be difficult for beginners to learn how to use it to properly configure a firewall. If you’re looking to get started securing your network, and you’re not sure which tool to use, UFW may be the right choice for you.
 
@@ -9,7 +43,11 @@ UFW is installed by default on Ubuntu. If it has been uninstalled for some reaso
 ```shell
 sudo apt install ufw
 ```
-## Step 1 — Using IPv6 with UFW (Optional)
+
+
+
+### Using IPv6
+
 This tutorial is written with IPv4 in mind, but will work for IPv6 as well as long as you enable it. If your Ubuntu server has IPv6 enabled, ensure that UFW is configured to support IPv6 so that it will manage firewall rules for IPv6 in addition to IPv4. To do this, open the UFW configuration with nano or your favorite editor.
 
 ```shell
@@ -24,7 +62,10 @@ IPV6=yes
 
 Save and close the file. Now, when UFW is enabled, it will be configured to write both IPv4 and IPv6 firewall rules. However, before enabling UFW, we will want to ensure that your firewall is configured to allow you to connect via SSH. Let’s start with setting the default policies.
 
-## Step 2 — Setting Up Default Policies
+
+
+### Setting Up Default Policies
+
 If you’re just getting started with your firewall, the first rules to define are your default policies. These rules control how to handle traffic that does not explicitly match any other rules. By default, UFW is set to deny all incoming connections and allow all outgoing connections. This means anyone trying to reach your server would not be able to connect, while any application within the server would be able to reach the outside world.
 
 Let’s set your UFW rules back to the defaults so we can be sure that you’ll be able to follow along with this tutorial. To set the defaults used by UFW, use these commands:
@@ -37,7 +78,9 @@ sudo ufw default allow outgoing
 These commands set the defaults to deny incoming and allow outgoing connections. These firewall defaults alone might suffice for a personal computer, but servers typically need to respond to incoming requests from outside users. We’ll look into that next.
 
 
-## Step 3 — Allowing SSH Connections
+
+### Allowing SSH Connections
+
 If we enabled our UFW firewall now, it would deny all incoming connections. This means that we will need to create rules that explicitly allow legitimate incoming connections — SSH or HTTP connections, for example — if we want our server to respond to those types of requests. If you’re using a cloud server, you will probably want to allow incoming SSH connections so you can connect to and manage your server.
 
 To configure your server to allow incoming SSH connections, you can use this command:
@@ -60,7 +103,10 @@ sudo ufw allow 2222
 ```
 Now that your firewall is configured to allow incoming SSH connections, we can enable it.
 
-## Step 4 — Enabling UFW
+
+
+### Enabling UFW
+
 To enable UFW, use this command:
 
 ```shell
@@ -70,7 +116,10 @@ You will receive a warning that says the command may disrupt existing SSH connec
 
 The firewall is now active. Run the <code>sudo ufw status verbose</code> command to see the rules that are set. The rest of this tutorial covers how to use UFW in more detail, like allowing or denying different kinds of connections.
 
-## Step 5 — Allowing Other Connections
+
+
+### Allowing Other Connections
+
 At this point, you should allow all of the other connections that your server needs to respond to. The connections that you should allow depends on your specific needs. Luckily, you already know how to write rules that allow connections based on a service name or port; we already did this for SSH on port **22**. You can also do this for:
 
 <ul>
@@ -84,7 +133,10 @@ HTTPS on port 443, which is what encrypted web servers use, using <code>sudo ufw
 
 There are several others ways to allow other connections, aside from specifying a port or known service.
 
-#### Specific Port Ranges
+
+
+###### Specific Port Ranges
+
 You can specify port ranges with UFW. Some applications use multiple ports, instead of a single port.
 
 For example, to allow X11 connections, which use ports <code>6000</code>-<code>6007</code>, use these commands:
@@ -95,7 +147,10 @@ sudo ufw allow 6000:6007/udp
 ```
 When specifying port ranges with UFW, you must specify the protocol (**tcp** or **udp**) that the rules should apply to. We haven’t mentioned this before because not specifying the protocol automatically allows both protocols, which is OK in most cases.
 
-#### Specific IP Addresses
+
+
+###### Specific IP Addresses
+
 When working with UFW, you can also specify IP addresses. For example, if you want to allow connections from a specific IP address, such as a work or home IP address of **203.0.113.4**, you need to specify **from**, then the IP address:
 
 ```shell
@@ -106,7 +161,10 @@ You can also specify a specific port that the IP address is allowed to connect t
 ```shell
 sudo ufw allow from 203.0.113.4 to any port 22
 ```
-#### Subnets
+
+
+###### Subnets
+
 If you want to allow a subnet of IP addresses, you can do so using CIDR notation to specify a netmask. For example, if you want to allow all of the IP addresses ranging from **203.0.113.1** to **203.0.113.254** you could use this command:
 
 ```shell
@@ -118,7 +176,10 @@ Likewise, you may also specify the destination port that the subnet **203.0.113.
 sudo ufw allow from 203.0.113.0/24 to any port 22
 ```
 
-#### Connections to a Specific Network Interface
+
+
+###### Connections to a Specific Network Interface
+
 If you want to create a firewall rule that only applies to a specific network interface, you can do so by specifying “allow in on” followed by the name of the network interface.
 
 You may want to look up your network interfaces before continuing. To do so, use this command:
@@ -154,7 +215,10 @@ sudo ufw allow in on eth1 to any port 3306
 
 This would allow other servers on your private network to connect to your MySQL database.
 
-## Step 6 — Denying Connections
+
+
+### Denying Connections
+
 If you haven’t changed the default policy for incoming connections, UFW is configured to deny all incoming connections. Generally, this simplifies the process of creating a secure firewall policy by requiring you to create rules that explicitly allow specific ports and IP addresses through.
 
 However, sometimes you will want to deny specific connections based on the source IP address or subnet, perhaps because you know that your server is being attacked from there. Also, if you want to change your default incoming policy to **allow** (which is not recommended), you would need to create **deny** rules for any services or IP addresses that you don’t want to allow connections for.
@@ -174,10 +238,16 @@ sudo ufw deny from 203.0.113.4
 ```
 Now let’s take a look at how to delete rules.
 
-## Step 7 — Deleting Rules
+
+
+### Deleting Rules
+
 Knowing how to delete firewall rules is just as important as knowing how to create them. There are two different ways to specify which rules to delete: by rule number or by the actual rule (similar to how the rules were specified when they were created). We’ll start with the **delete by rule number** method because it is easier.
 
-#### By Rule Number
+
+
+###### By Rule Number
+
 If you’re using the rule number to delete firewall rules, the first thing you’ll want to do is get a list of your firewall rules. The UFW status command has an option to display numbers next to each rule, as demonstrated here:
 
 ```shell
@@ -203,7 +273,10 @@ sudo ufw delete 2
 
 This would show a confirmation prompt then delete rule 2, which allows HTTP connections. Note that if you have IPv6 enabled, you would want to delete the corresponding IPv6 rule as well.
 
-#### By Actual Rule
+
+
+###### By Actual Rule
+
 The alternative to rule numbers is to specify the actual rule to delete. For example, if you want to remove the **allow http** rule, you could write it like this:
 
 ```shell
@@ -217,7 +290,9 @@ sudo ufw delete allow 80
 ```
 This method will delete both IPv4 and IPv6 rules, if they exist.
 
-## Step 8 — Checking UFW Status and Rules
+
+
+### Checking UFW Status and Rules
 
 At any time, you can check the status of UFW with this command:
 
@@ -251,7 +326,124 @@ To                         Action      From
 
 Use the <code>status</code> command if you want to check how UFW has configured the firewall.
 
-## Step 9 — Disabling or Resetting UFW (optional)
+
+
+### Logging
+
+You can enable logging with the command:
+
+```bash
+sudo ufw logging on
+```
+
+
+
+To disable logging use:
+
+```bash
+sudo ufw logging off
+```
+
+
+
+See logs:
+
+```bash
+grep UFW /var/log/syslog
+```
+
+Or
+
+```bash
+grep UFW /var/log/syslog | less
+```
+
+Or
+
+```bash
+sudo dmesg | grep '\[UFW'
+```
+
+
+
+Log levels can be set by running `sudo ufw logging low|medium|high`, selecting either `low`, `medium`, or `high` from the list. The default setting is `low`.
+
+A normal log entry will resemble the following, and will be located at `/var/logs/ufw`:
+
+```
+Sep 16 15:08:14 <hostname> kernel: [UFW BLOCK] IN=eth0 OUT= MAC=00:00:00:00:00:00:00:00:00:00:00:00:00:00 SRC=123.45.67.89 DST=987.65.43.21 LEN=40 TOS=0x00 PREC=0x00 TTL=249 ID=8475 PROTO=TCP SPT=48247 DPT=22 WINDOW=1024 RES=0x00 SYN URGP=0
+```
+
+
+
+The initial values list the date, time, and hostname of your Linode. Additional important values include:
+
+- **[UFW BLOCK]:** This location is where the description of the logged event will be located. In this instance, it blocked a connection.
+- **IN:** If this contains a value, then the event was incoming
+- **OUT:** If this contain a value, then the event was outgoing
+- **MAC:** A combination of the destination and source MAC addresses
+- **SRC:** The IP of the packet source
+- **DST:** The IP of the packet destination
+- **LEN:** Packet length
+- **TTL:** The packet TTL, or *time to live*. How long it will bounce between routers until it expires, if no destination is found.
+- **PROTO:** The packet’s protocol
+- **SPT:** The source port of the package
+- **DPT:** The destination port of the package
+- **WINDOW:** The size of the packet the sender can receive
+- **SYN URGP:** Indicated if a three-way handshake is required. `0` means it is not.
+
+
+
+### Understand UFW Log in details
+
+UFW is just a front end for iptables, and so those log entries are actually from iptables.
+
+
+
+Line 1: `Feb  6 16:27:08 jonasgroenbek kernel: [71910.873115]`
+
+date and time, your computer name, and kernel time since boot.
+
+
+
+Line 2: `[UFW BLOCK] IN=eth0 OUT=`
+
+whenever iptables does a log entry there is an optional `--log-prefix`, in this case `[UFW BLOCK]`. The seriously annoying thing about UFW is that it uses the same prefix for every type of log entry, making it difficult to correlate back to the iptables rule set. The `IN` is the network interface name that the packet arrived on. The `OUT` is blank because the packet is not been re-transmitted, which might be the case if this was a router application.
+
+
+
+Line 3: `MAC=a6:8d:e2:51:62:4c:f0:4b:3a:4f:80:30:08:00`
+
+These are the Machine Address Codes for the local area destination (a6:8d:e2:51:62:4c (eth0)) and source (f0:4b:3a:4f:80:30) network interface cards. In your case the source is probably the MAC of your ISP gateway NIC. 6 bytes each. The extra 2 bytes (08:00) at the end are the frame type, in this case it means "ethernet frame carried an IPv4 datagram".
+
+
+
+Line 4: `SRC=77.72.85.26 DST=157.230.26.180`
+
+Those are the IP addresses for where the packet came from, SRC, and where is it supposed to going, DST and should be your IP address.
+
+
+
+Line 5: `LEN=40 TOS=0x00 PREC=0x00 TTL=251 ID=62215 PROTO=TCP`
+
+Length of the payload portion of the raw packet; Type of service, Presedence, Time to live (how many hops left before the packet will die from too many hops); Identification; Protocol (in this case TCP).
+
+
+
+Line 6: `SPT=42772 DPT=3194 WINDOW=1024`
+
+Source port; Detestation port; TCP window size
+
+
+
+Line 7: `RES=0x00 SYN URGP=0`
+
+TCP flags, the important one here is "SYN" meaning it it attempting to make a NEW connection. This log entry means the attempt has been blocked.
+
+
+
+### Disabling or Resetting UFW
+
 If you decide you don’t want to use UFW, you can disable it with this command:
 
 ```shell
