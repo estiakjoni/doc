@@ -9,10 +9,7 @@
     - [Specific IP Addresses](#Specific-IP-Addresses)
     - [Subnets](#Subnets)
     - [Connections to a Specific Network Interface](#Connections-to-a-Specific-Network-Interface)
-
 - [Denying Connections](#Denying-Connections)
-
-
 - [Deleting Rules](#Deleting-Rules)
     - [By Rule Number](#By-Rule-Number)
     - [By Actual Rule](#By-Actual-Rule)
@@ -20,17 +17,6 @@
 - [Logging](#Logging)
 - [Understand UFW Log in details](#Understand-UFW-Log-in-details)
 - [Disabling or Resetting UFW](#Disabling-or-Resetting-UFW)
-
-
-
-
-
-
-
-
-
-
-
 
 
 
