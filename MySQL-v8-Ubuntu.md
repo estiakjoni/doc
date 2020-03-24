@@ -138,6 +138,12 @@ Or Grant privilege to selected database
 GRANT ALL ON dbname.* TO 'tankibaj'@'%';
 ```
 
+Or Grant selected database readonly permission
+
+```bash
+GRANT SELECT ON DB_NAME.* TO 'user'@'localhost' IDENTIFIED BY 'PASSWORD';
+```
+
 ```shell
 FLUSH PRIVILEGES;
 ```
