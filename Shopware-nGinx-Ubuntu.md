@@ -1,3 +1,15 @@
+
+- [Requirements](#requirements)
+- [Before you begin](#before-you-begin)
+- [Install PHP](#install-php)
+- [Install IonCube Loader](#install-ioncube-loader)
+- [Install MySQL and setup the database](#install-mysql-and-setup-the-database)
+- [Install and configure Nginx](#install-and-configure-nginx)
+- [Install Shopware](#install-shopware)
+
+______
+
+
 Shopware is an open source eCommerce platform for online businesses. This guide will show you how to install Shopware Community Edition (CE) on a fresh Ubuntu 18.04 LTS server instance.
 
 # Requirements
