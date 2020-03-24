@@ -1,4 +1,24 @@
-[TOC]
+<!-- TOC -->
+- [MySQL Repository](#mysql-repository)
+- [Installing MySQL](#installing-mysql)
+- [Securing MySQL](#securing-mysql)
+- [Testing MySQL](#testing-mysql)
+- [Create a database](#create-a-database)
+- [Create a user](#create-a-user)
+  * [Locahost access](#locahost-access)
+  * [Anyhost access](#anyhost-access)
+- [User privilege](#user-privilege)
+  * [Grant all privilege to user](#grant-all-privilege-to-user)
+  * [Grant specific database privilege to user](#grant-specific-database-privilege-to-user)
+  * [Grant all database readonly permission to user](#grant-all-database-readonly-permission-to-user)
+  * [Grant specific database readonly permission to user](#grant-specific-database-readonly-permission-to-user)
+  * [Show granted permission](#show-granted-permission)
+- [Drop user](#drop-user)
+- [MySQL Config](#mysql-config)
+- [Uninstall](#uninstall)
+<!-- /TOC -->
+___________
+
 
 
 
