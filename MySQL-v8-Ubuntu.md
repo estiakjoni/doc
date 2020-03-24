@@ -1,4 +1,14 @@
-# Adding the MySQL Software Repository
+[TOC]
+
+
+
+
+
+
+
+
+# MySQL Repository
+
 Now we’re going to download the repository.
 
 ```shell
@@ -25,19 +35,33 @@ Let’s also clean up after ourselves and delete the file we downloaded:
 rm mysql-apt-config*
 ```
 
+
+
+
+
+
+
 # Installing MySQL
+
 Having added the repository and with our package cache freshly updated, we can now use apt to install the latest MySQL server package:
 
 ```shell
 sudo apt install mysql-server
 ```
+
+
 MySQL should now be installed and running. Let’s check using systemctl
 
 ```shell
 sudo systemctl status mysql
 ```
 
+
+
+
+
 # Securing MySQL
+
 MySQL comes with a command we can use to perform a few security-related updates on our new install. Let’s run it now:
 
 ```shell
@@ -56,6 +80,8 @@ sudo mysql_secure_installation
 
 # All done!
 ```
+
+
 Connect to the MySQL shell as the root user.
 
 ```bash
@@ -63,38 +89,55 @@ sudo mysql -u root -p
 # Enter password
 ```
 
+
+
 Next, check which authentication method each of your MySQL user accounts use with the following command:
 
-```shell
+```mysql
 SELECT user,authentication_string,plugin,host FROM mysql.user;
 ```
 
+
+
 MySQL 8 default authentication plugin is caching_sha2_password. To change root user plugin to mysql_native_password, run the following ALTER USER command. Be sure to change password to a strong password of your choosing:
 
-```shell
+```mysql
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '123123';
 ```
 
+
+
 By default MySQL 8 root user can acccess from only localhost. If you want to access it from any host then run:
 
-```shell
+```mysql
 UPDATE mysql.user SET host='%' WHERE user='root';
 ```
 
-Then, run FLUSH PRIVILEGES which tells the server to reload the grant tables and put your new changes into effect:
-```shell
-FLUSH PRIVILEGES;
-```
+
 
 Set MySQL sever time zone:
 
-```shell
+```mysql
 SET GLOBAL time_zone = '+1:00';
 ```
 
 
+
+Then, run FLUSH PRIVILEGES which tells the server to reload the grant tables and put your new changes into effect:
+
+```mysql
+FLUSH PRIVILEGES;
+```
+
+
+
 Once you confirm this on your own server, you can exit the MySQL shell:
-<pre>exit</pre>
+
+```mysql
+exit
+```
+
+
 
 
 # Testing MySQL
@@ -105,63 +148,114 @@ mysqladmin is a command line administrative client for MySQL. We’ll use it to 
 mysqladmin -u root -p version
 ```
 
+
+
 # Create a database
 
-```shell
-CREATE DATABASE dbname;
+```mysql
+CREATE DATABASE DB_NAME;
 ```
 
-Grant new database privilege to a user
 
-```shell
-GRANT ALL ON dbname.* TO 'user'@'localhost';
+
+# Create a user
+
+MySQL 8.0 default authentication plugin is caching_sha2_password rather than mysql_native_password, which is the default method in MySQL 5.7 and prior. But CREATE or ALTER your database user to mysql_native_password.
+
+
+
+## Locahost access
+
+Create user to access database from localhost
+
+```mysql
+CREATE USER 'user'@'localhost' IDENTIFIED WITH mysql_native_password BY 'PASSWORD';
 ```
 
-```shell
-FLUSH PRIVILEGES;
+
+
+## Anyhost access
+Create user to access database from any host
+
+```mysql
+CREATE USER 'user'@'%' IDENTIFIED WITH mysql_native_password BY 'PASSWORD';
 ```
 
-# Create a user and privilege
-MySQL 8.0 default authentication plugin is caching_sha2_password rather than mysql_native_password, which is the default method in MySQL 5.7 and prior. But CREATE or ALTER your database user to mysql_native_password with the command shown below:
 
-```shell
-CREATE USER 'tankibaj'@'%' IDENTIFIED WITH mysql_native_password BY 'password';
-```
-Grant all databases privilege to new user
 
-```shell
-GRANT ALL PRIVILEGES ON * . * TO 'tankibaj'@'%';
-```
-Or Grant privilege to selected database
 
-```shell
-GRANT ALL ON dbname.* TO 'tankibaj'@'%';
+
+# User privilege
+
+
+
+## Grant all privilege to user
+
+```mysql
+GRANT ALL PRIVILEGES ON * . * TO 'user'@'localhost' IDENTIFIED BY 'PASSWORD';;
 ```
 
-Or Grant selected database readonly permission
 
-```bash
+## Grant specific database privilege to user
+
+```mysql
+GRANT ALL ON DB_NAME.* TO 'user'@'localhost' IDENTIFIED BY 'PASSWORD';
+```
+
+
+
+## Grant all database readonly permission to user
+
+```mysql
+GRANT SELECT ON *.* TO 'user'@'localhost' IDENTIFIED BY 'PASSWORD';
+
+```
+
+## Grant specific database readonly permission to user
+
+```mysql
 GRANT SELECT ON DB_NAME.* TO 'user'@'localhost' IDENTIFIED BY 'PASSWORD';
 ```
 
-```shell
+
+
+## Show granted permission
+
+```mysql
+ SHOW GRANTS FOR 'user'@'localhost';
+```
+
+
+
+Then, run FLUSH PRIVILEGES which tells the server to reload the grant tables and put your new changes into effect:
+
+```mysql
 FLUSH PRIVILEGES;
 ```
+
+
+
+
 
 # Drop user
 
 ```shell
-drop user tankibaj;
+drop user username;
 ```
 
 
-# Change port
+
+
+
+# MySQL Config
 
 Open mysql config
 
 ```shell
 sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf
 ```
+
+
 
 Add following lines
 
@@ -175,11 +269,15 @@ bind-address    = 0.0.0.0
 port            = 6969
 ```
 
+
+
 Restart mysql
 
 ```shell
 service mysql restart
 ```
+
+
 
 # Uninstall
 
