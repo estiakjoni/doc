@@ -175,3 +175,12 @@ Restart mysql
 service mysql restart
 ```
 
+# Uninstall
+
+```bash
+sudo apt-get --purge remove mysql-client mysql-server mysql-common && \
+sudo apt-get autoremove && \
+sudo apt-get autoclean && \
+sudo rm -rf /etc/mysql/ && \
+sudo rm -rf /var/lib/mysql/
+```
