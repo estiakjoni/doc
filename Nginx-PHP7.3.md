@@ -1,7 +1,21 @@
+- [Nginx Installation](#nginx-installation)
+  * [Install nginx package](#install-nginx-package)
+  * [Firewall configure](#firewall-configure)
+  * [Server root directory setup](#server-root-directory-setup)
+- [PHP 7.3 Installation](#php-73-installation)
+  * [Add PHP 7.3 PPA](#add-php-73-ppa)
+  * [Install PHP 7.3 Extensions](#install-php-73-extensions)
+- [Configuring Nginx to Use the PHP Processor](#configuring-nginx-to-use-the-php-processor)
+  * [HTTP 80](#http-80)
+  * [HTTPS 443](#https-443)
+- [Test PHP Nginx](#test-php-nginx)
+________
+
+
 # Nginx Installation
 In order to display web pages to our site visitors, we are going to employ Nginx, a modern, efficient web server.
 
-## Step 01 -- Install nginx package
+## Install nginx package
 
 ```shell
 sudo apt update
@@ -9,7 +23,7 @@ sudo apt install nginx
 ```
 After accepting the procedure, apt will install Nginx and any required dependencies to your server.
 
-## Step 02 -- Firewall configure
+## Firewall configure
 
 After install Nginx, the firewall software needs to be adjusted to allow access to the service. Nginx registers itself as a service with **ufw** upon installation, making it straightforward to allow Nginx access.
 
@@ -75,7 +89,7 @@ OpenSSH (v6)               ALLOW       Anywhere (v6)
 Nginx HTTP (v6)            ALLOW       Anywhere (v6)
 ```
 
-## Step 03 -- Server root directory setup
+## Server root directory setup
 
 Nginx on Ubuntu 18.04 has one server block enabled by default that is configured to serve documents out of a directory at **/var/www/html**. While this works well for a single site, it can become unwieldy if you are hosting multiple sites. Instead of modifying **/var/www/html**, let’s create a directory structure within **/var/www** for our **example.com** site, leaving **/var/www/html** in place as the default directory to be served if a client request doesn’t match any other sites.
 
@@ -135,7 +149,7 @@ sudo systemctl reload nginx
 
 PHP 7.3 for Ubuntu and Debian is available from ondrej/php PPA repository. PHP 7.3 stable version has been released with many new features and bug fixes.
 
-## Step 1: Add PHP 7.3 PPA
+## Add PHP 7.3 PPA
 Add ondrej/php which has PHP 7.3 package and other required PHP extensions.
 
 
@@ -144,7 +158,7 @@ sudo add-apt-repository ppa:ondrej/php && sudo apt-get update
 ```
 This PPA can be added to your system manually by copying the lines below and adding them to your system’s software sources.
 
-## Step 2: Install PHP 7.3 & Extensions
+## Install PHP 7.3 Extensions
 Once the PPA repository has been added, install php 7.3 on your Ubuntu/Debian.
 
 ```shell
@@ -173,7 +187,7 @@ By editing a new server block configuration file, rather than editing the defaul
 
 Add the following content, which was taken and slightly modified from the default server block configuration file, to your new server block configuration file:
 
-**HTTP 80**
+## HTTP 80
 
 Now, Create new server block for you domain
 ```shell
@@ -240,7 +254,7 @@ server {
 }
 ```
 
-**HTTPS 443**
+## HTTPS 443
 
 Create your_domain name directory for certificate and private key
 
