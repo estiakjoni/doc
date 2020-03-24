@@ -1,4 +1,13 @@
-# Download uTorrent:
+- [Download uTorrent:](#download-utorrent)
+  * [Install dependencies:](#install-dependencies)
+- [Install uTorrent](#install-utorrent)
+  * [Auto Start uTorrent Server on Ubuntu](#auto-start-utorrent-server-on-ubuntu)
+- [Setting up Nginx Reverse Proxy](#setting-up-nginx-reverse-proxy)
+      - [Sub-domain Configuration](#sub-domain-configuration)
+- [Setting up Apache Reverse Proxy](#setting-up-apache-reverse-proxy)
+- [Uninstall uTorrent](#uninstall-utorrent)
+______
+# Download uTorrent
 
 ```bash
 sudo wget http://download-hr.utorrent.com/track/beta/endpoint/utserver/os/linux-x64-debian-7-0/utserver.tar.gz
@@ -6,7 +15,7 @@ sudo wget http://download-hr.utorrent.com/track/beta/endpoint/utserver/os/linux-
 
 
 
-## Install dependencies:
+## Install dependencies
 
 ```bash
 apt install libssl1.0.0 libssl-dev
@@ -14,7 +23,7 @@ apt install libssl1.0.0 libssl-dev
 
 
 
-######  [Optional] Download dependencies and install pkg: [docs](https://packages.debian.org/jessie/libssl1.0.0)
+**[Optional] Download dependencies and install pkg: [docs](https://packages.debian.org/jessie/libssl1.0.0)**
 
 ```bash
 wget http://security.debian.org/debian-security/pool/updates/main/o/openssl/libssl1.0.0_1.0.1t-1+deb8u11_amd64.deb && \
