@@ -1,27 +1,27 @@
 - [Overview](#overview)
 - [Install](#install)
-          - [Ubuntu](#ubuntu)
-          - [macOS](#macos)
+    - [Ubuntu](#ubuntu)
+    - [macOS](#macos)
 - [Download](#download)
-        - [FTP SSL - FTPS](#ftp-ssl---ftps)
-        - [SSL FTP - SFTP](#ssl-ftp---sftp)
-        - [FTP](#ftp)
-        - [SSH SCP not password-protected](#ssh-scp-not-password-protected)
-        - [SSH SCP password-protected](#ssh-scp-password-protected)
-        - [SMB Server](#smb-server)
-        - [HTTP password-protected](#http-password-protected)
-        - [HTTP](#http)
-        - [HTTPS password-protected](#https-password-protected)
-        - [HTTPS](#https)
+    - [FTPS](#ftps)
+    - [SFTP](#sftp)
+    - [FTP](#ftp)
+    - [SSH SCP non password protected](#ssh-scp-non-password-protected)
+    - [SSH SCP password protected](#ssh-scp-password-protected)
+    - [SMB Server](#smb-server)
+    - [HTTP password protected](#http-password-protected)
+    - [HTTP](#http)
+    - [HTTPS password protected](#https-password-protected)
+    - [HTTPS](#https)
 - [Uploading](#uploading)
-          - [FTPS - FTP SSL](#ftps---ftp-ssl)
-          - [SFTP - SSL FTP](#sftp---ssl-ftp)
-          - [FTP Upload](#ftp-upload)
-          - [SSH SCP non password protected](#ssh-scp-non-password-protected)
-          - [SSH SCP password protected](#ssh-scp-password-protected)
-          - [SMB](#smb)
-          - [HTTP PUT](#http-put)
-          - [HTTP POST](#http-post)
+    - [FTPS](#ftps-1)
+    - [SFTP](#sftp-1)
+    - [FTP Upload](#ftp-upload)
+    - [SSH SCP non password protected](#ssh-scp-non-password-protected-1)
+    - [SSH SCP password protected](#ssh-scp-password-protected-1)
+    - [SMB](#smb)
+    - [HTTP PUT](#http-put)
+    - [HTTP POST](#http-post)
 - [Comment](#comment)
 
 # Overview
@@ -56,7 +56,7 @@ brew install curl
 
 
 
-### FTP SSL - FTPS
+### FTPS
 
 ```bash
 curl -u user:password --ftp-ssl ftp://download.com/file.zip -o /home/user/file.zip
@@ -64,7 +64,7 @@ curl -u user:password --ftp-ssl ftp://download.com/file.zip -o /home/user/file.z
 
 
 
-### SSL FTP - SFTP
+### SFTP
 
 ```bash
 curl -u user:password sftp://download.com/file.zip -o /home/user/file.zip
@@ -80,7 +80,7 @@ curl -u user:password ftp://download.com/file.zip -o /home/user/file.zip
 
 
 
-### SSH SCP not password-protected
+### SSH SCP non password protected
 
 ```bash
 curl -u username: --key ~/.ssh/id_rsa scp://download.com/~/file.zip -o /home/user/file.zip
@@ -88,7 +88,7 @@ curl -u username: --key ~/.ssh/id_rsa scp://download.com/~/file.zip -o /home/use
 
 
 
-### SSH SCP password-protected
+### SSH SCP password protected
 
 ```bash
 curl -u username: --key ~/.ssh/id_rsa --pass private_key_password scp://download.com/~/file.zip -o /home/user/file.zip
@@ -104,7 +104,7 @@ curl -u 'domain\username:passwd' smb://server.download.com/share/file.zip -o /ho
 
 
 
-### HTTP password-protected
+### HTTP password protected
 
 ```bash
 curl -u name:passwd http://download.com/file.zip -o /home/user/file.zip
@@ -120,7 +120,7 @@ curl http://download.com/file.zip -o /home/user/file.zip
 
 
 
-### HTTPS password-protected
+### HTTPS password protected
 
 ```bash
 curl -u name:passwd https://download.com/file.zip -o /home/user/file.zip
@@ -140,7 +140,7 @@ curl https://download.com/file.zip -o /home/user/file.zip
 
 
 
-### FTPS - FTP SSL 
+### FTPS
 
 ```bash
 curl -T /home/user/file.zip -u user:password --ftp-ssl ftp://upload.com/upload/
@@ -148,7 +148,7 @@ curl -T /home/user/file.zip -u user:password --ftp-ssl ftp://upload.com/upload/
 
 
 
-### SFTP - SSL FTP
+### SFTP
 
 ```bash
 curl -T /home/user/file.zip -u user:password sftp://upload.com/upload/
