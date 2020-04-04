@@ -50,3 +50,7 @@ Let's switch back to the first PHP version now:
 brew unlink php@7.4 && brew link --force --overwrite php@7.0
 ```
 
+xdebug
+```shell
+$(brew --prefix php@7.3)/bin/pecl install --force xdebug
+```
