@@ -16,6 +16,10 @@
 - [Drop user](#drop-user)
 - [MySQL Config](#mysql-config)
 - [Uninstall](#uninstall)
+  * [Ubuntu](#ubuntu)
+  * [macOS](#macos)
+- [Fixing ERROR](#fixing-error)
+  * [macOS](#macos)
 <!-- /TOC -->
 ___________
 
@@ -301,10 +305,43 @@ service mysql restart
 
 # Uninstall
 
+#### Ubuntu
+
 ```bash
 sudo apt-get --purge remove mysql-client mysql-server mysql-common && \
 sudo apt-get autoremove && \
 sudo apt-get autoclean && \
 sudo rm -rf /etc/mysql/ && \
 sudo rm -rf /var/lib/mysql/
+```
+
+#### macOS
+
+```bash
+sudo rm -rf /usr/local/Cellar/mysql
+brew cleanup
+sudo rm -rf /usr/local/var/mysql
+brew install mysql
+```
+
+
+# Fixing ERROR
+
+#### macOS
+
+ERROR 2002 (HY000): Can't connect to local MySQL server through socket '/tmp/mysql.sock' (2)
+
+I tried to kill the PID which is what most posts recommend, but the error remained 
+
+This command did the trick for me, my installed MySQL version is just mysql if you're is like mysql@5.7 then adjust the name on the end of the command.
+
+```bash
+sudo chown -R _mysql:mysql /usr/local/var/mysql && sudo brew services restart mysql
+```
+
+Another approach is to change MySQL Permissions:
+
+```bash
+sudo chown -R _mysql:mysql /usr/local/var/mysql
+sudo mysql.server start
 ```
