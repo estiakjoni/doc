@@ -1,3 +1,11 @@
+* [Install Apache2](#install-apache2)
+* [Configure Apache2](#configure-apache2)
+* [Virtual Hosts](#virtual-hosts)
+* [Adjust the Firewall to Allow Web Traffic Ubuntu](#adjust-the-firewall-to-allow-web-traffic-ubuntu)
+* [How To Find your Server's Public IP Address](#how-to-find-your-servers-public-ip-address)
+----------------
+
+
 ## Install Apache2
 
 ```bash
