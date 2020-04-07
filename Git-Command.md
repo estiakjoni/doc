@@ -1,3 +1,18 @@
+* [What is Git?](#what-is-git)
+* [Concepts Of Git](#concepts-of-git)
+* [Basic Commands](#basic-commands)
+* [Installing Git](#installing-git)
+* [Git Ignore](#git-ignore)
+* [Generating a new SSH key and adding it to the ssh\-agent](#generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
+* [Connect Git account from fresh PC through SSH key](#connect-git-account-from-fresh-pc-through-ssh-key)
+* [Create a new repository on the command line](#create-a-new-repository-on-the-command-line)
+* [Git branch](#git-branch)
+* [Change Git Commit Message, Even After Push](#change-git-commit-message-even-after-push)
+* [Git Reset and Clean (Restore to last commit)](#git-reset-and-clean-restore-to-last-commit)
+* [Git Alias](#git-alias)
+------------
+
+
 ## What is Git?
 
 Git is a distributed version-control system for tracking changes in source code during software development.
