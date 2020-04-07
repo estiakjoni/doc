@@ -1,3 +1,13 @@
+  * [Install PHP](#install-php)
+  * [Configure Apache2](#configure-apache2)
+  * [Configure php date time zone](#configure-php-date-time-zone)
+* [line 941: uncomment and add your timezone](#line-941-uncomment-and-add-your-timezone)
+  * [Configure PHP\-FPM (Optional)](#configure-php-fpm-optional)
+  * [Test php](#test-php)
+* [Optional For PHP](#optional-for-php)
+  * [Show the List of Installed Packages on Ubuntu or Debian](#show-the-list-of-installed-packages-on-ubuntu-or-debian)
+
+
 ## Install PHP
 
 ```bash
