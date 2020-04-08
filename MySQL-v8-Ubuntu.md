@@ -142,7 +142,7 @@ UPDATE mysql.user SET host='%' WHERE user='root';
 Set MySQL sever time zone:
 
 ```mysql
-SET GLOBAL time_zone = '+1:00';
+SET GLOBAL time_zone = '+00:00';
 ```
 
 
@@ -291,6 +291,7 @@ datadir         = /var/lib/mysql
 log-error       = /var/log/mysql/error.log
 bind-address    = 0.0.0.0
 port            = 6969
+default_time_zone='+00:00'
 ```
 
 
