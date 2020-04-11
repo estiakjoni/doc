@@ -17,6 +17,8 @@
 
 Git is a distributed version-control system for tracking changes in source code during software development.
 
+
+
 ## Concepts Of Git
 
 - Keeps tarack of code history
@@ -26,7 +28,9 @@ Git is a distributed version-control system for tracking changes in source code 
 - You can stage files before commit
 
 
+
 ## Basic Commands
+
 ```git init``` 					Initailze local Git repository
 
 ```git add <file>``` 			Add/Track file(s) to index
@@ -57,6 +61,8 @@ Git is a distributed version-control system for tracking changes in source code 
 
 ```git log``` 				To see commited logs
 
+
+
 ## Installing Git
 
 - Linux (Debian)
@@ -77,8 +83,17 @@ sudo yum install git
 
 ```<link>``` : <https://git-scm.com/download/win>
 
+
+
 ## Git Ignore
+
+You can configure Git to ignore files you don't want to check in to GitHub. You can create a *.gitignore* file in your repository's root directory to tell Git which files and directories to ignore when you make a commit. To share the ignore rules with other users who clone the repository, commit the *.gitignore* file in to your repository.
+
 A gitignore file specifies intentionally untracked files that Git should ignore. Patterns read from a .gitignore file in the same directory as the path. Each line in a gitignore file specifies a pattern.
+
+GitHub maintains an official list of recommended *.gitignore* files for many popular operating systems, environments, and languages in the `github/gitignore` public repository. You can also use gitignore.io to create a *.gitignore* file for your operating system, programming language, or IDE. For more information, see "[github/gitignore](https://github.com/github/gitignore)" and the "[gitignore.io](https://www.gitignore.io/)" site.
+
+
 
 **Create .gitignore file** `touch .gitignore`
 
@@ -90,9 +105,39 @@ A gitignore file specifies intentionally untracked files that Git should ignore.
 
 `/mydir` ignore 'mydir' directory
 
-'.idea/*' 
+`.idea/*`
+
+
+
+#### Global ignored files for all repositories on your computer
+
+You can also create a global *.gitignore* file to define a list of rules for ignoring files in every Git repository on your computer. For example, you might create the file at *~/.gitignore_global* and add some rules to it.
+
+1. Open Terminal.
+
+2. Configure Git to use the exclude file `~/.gitignore_global` for all Git repositories. Use [gitignore.io](https://www.gitignore.io/) if needed.
+
+   ```shell
+   git config --global core.excludesfile ~/.gitignore_global
+   ```
+
+
+
+#### Excluding local files without creating a *.gitignore* file
+
+If you don't want to create a *.gitignore* file to share with others, you can create rules that are not committed with the repository. You can use this technique for locally-generated files that you don't expect other users to generate, such as files created by your editor.
+
+Use your favorite text editor to open the file called *.git/info/exclude* within the root of your Git repository. Any rule you add here will not be checked in, and will only ignore files for your local repository.
+
+1. Open Terminal.
+2. Navigate to the location of your Git repository.
+3. Using your favorite text editor, open the file `.git/info/exclude`
+
+
+
 
 ## Generating a new SSH key and adding it to the ssh-agent
+
 **Generating a new SSH key**
 - Open Git Bash.
 - Paste the text below, substituting in your GitHub email address.
@@ -118,6 +163,7 @@ eval $(ssh-agent -s)
 ```
 ssh-add ~/.ssh/id_rsa
 ```
+
 
 
 ## Connect Git account from fresh PC through SSH key
@@ -162,7 +208,10 @@ git remote add origin git@github.com:GitUsername/repositoryname.git
 git push -u origin master
 ```
 
+
+
 ## Git branch
+
 Git, branches are a part of your everyday development process. Git branches are effectively a pointer to a snapshot of your changes.
 
 **Create a branch**
@@ -173,6 +222,7 @@ Git, branches are a part of your everyday development process. Git branches are 
 
 **Merge file(s) with master**
 ``` git merge <BranchName> -m '<msg>' ```
+
 
 
 ## Change Git Commit Message, Even After Push
@@ -190,6 +240,7 @@ git log --oneline
 </pre>
 
 
+
 ## Git Reset and Clean (Restore to last commit)
 
 ```bash
@@ -200,6 +251,8 @@ Or
 ```bash
 git reset --hard && git clean -df
 ```
+
+
 
 ## Git Alias
 
