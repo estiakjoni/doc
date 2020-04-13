@@ -7,7 +7,7 @@
 Run following command on your `local pc` terminal. 
 
 ```bash
-ssh-keygen -t -rsa -b 4096 -C 'mail@thenaim.com'
+ssh-keygen -t rsa -b 4096 -C 'mail@thenaim.com'
 ```
 
 
