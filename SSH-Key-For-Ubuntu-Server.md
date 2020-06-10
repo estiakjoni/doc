@@ -78,7 +78,7 @@ sudo apt update
 Run following command on your `ubuntu server` terminal to copy `id_rsa.pub` key
 
 ```bash
-cat id_rsa.pub | pbcopy
+cat ~/.ssh/id_rsa.pub | pbcopy
 ```
 
 
