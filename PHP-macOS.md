@@ -54,3 +54,21 @@ xdebug
 ```shell
 $(brew --prefix php@7.3)/bin/pecl install --force xdebug
 ```
+
+
+
+PHP Extension
+
+Checl PECL
+
+```bash
+ls -al $(which pecl)
+ls -al $(which pear)
+```
+
+ Install APCU extension
+
+```bash
+pecl install apcu
+```
+
