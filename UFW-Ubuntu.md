@@ -345,6 +345,10 @@ sudo ufw logging off
 
 See logs:
 
+```shell
+tail -f /var/log/ufw.log
+```
+Or
 ```bash
 grep UFW /var/log/syslog
 ```
