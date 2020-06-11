@@ -7,6 +7,7 @@
 - [Allowing Other Connections](#Allowing-Other-Connections)
     - [Specific Port Ranges](#Specific-Port-Ranges)
     - [Specific IP Addresses](#Specific-IP-Addresses)
+    - [Specific App](#Specific-App)
     - [Subnets](#Subnets)
     - [Connections to a Specific Network Interface](#Connections-to-a-Specific-Network-Interface)
 - [Denying Connections](#Denying-Connections)
@@ -153,6 +154,11 @@ You can also specify a specific port that the IP address is allowed to connect t
 sudo ufw allow from 203.0.113.4 to any port 22
 ```
 
+#### Specific App
+
+```shell
+sudo ufw allow from 51.38.98.145 to any app Samba
+```
 
 #### Subnets
 
