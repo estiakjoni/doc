@@ -430,3 +430,10 @@ Now visit your website at **https://example.com** to verify that it was set up p
 To verify that your server will only accept requests signed by Cloudflare’s CA, toggle the **Authenticated Origin Pulls** option to disable it and then reload your website. You should get the following error message :
 
 ![img](https://i.imgur.com/ENwiG8V.png)
+
+## Logs
+
+```bash
+sudo tail -f /var/log/nginx/error.log
+sudo tail -f /var/log/nginx/access.log
+```
