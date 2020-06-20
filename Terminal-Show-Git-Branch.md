@@ -34,9 +34,18 @@ source ~/.bashrc
 
 To prettify your command prompt you can colorize:
 
+Without Host
+
 ```shell
 export PS1="\[\033[38;5;35m\]\u\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]\[\033[38;5;184m\]\w\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]\[\033[38;5;31m\]\$(git_branch)\[$(tput sgr0)\]\[\e[1m\]:: \[$(tput sgr0)\]"
 ```
+
+With Host
+
+```bash
+export PS1="\[\033[38;5;35m\]\h\[$(tput sgr0)\]@\[$(tput sgr0)\]\[\033[38;5;35m\]\u\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]\[\033[38;5;184m\]\w\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]\[\033[38;5;31m\]\$(git_branch)\[$(tput sgr0)\]\[\e[1m\]:: \[$(tput sgr0)\]"
+```
+
 
 You can generate your .bashrc/PS1 bash prompt easily -> [http://bashrcgenerator.com/](http://bashrcgenerator.com/)
 
