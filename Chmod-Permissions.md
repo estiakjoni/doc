@@ -1,6 +1,8 @@
 # Chmod Permissions
 
-
+* [Permissions](#permissions)
+* [Permission numeric](#permission-numeric)
+* [Links](#links)
 
 ### Permissions
 

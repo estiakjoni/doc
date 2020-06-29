@@ -181,7 +181,7 @@ server {
 
     location ~ \.php$ {
         include snippets/fastcgi-php.conf;
-        fastcgi_pass unix:/var/run/php/php7.2-fpm.sock; # Check this
+        fastcgi_pass unix:/var/run/php/php7.3-fpm.sock; # Check this
     }
 }
 ```
@@ -244,9 +244,93 @@ sudo nano /etc/php/7.3/fpm/php.ini
 After making changes in the `/etc/php/7.3/fpm/php.ini` file, reload `php7.3-fpm.service`
 
 ```bash
-sudo systemctl reload php7.2-fpm.service
+sudo systemctl reload php7.3-fpm.service
 ```
 
 Open your domain/IP in the web browser and follow the installation wizard. The backend of Shopware is located at `/backend` example: `http://example.com/backend`.
 
 You have successfully installed Shopware.
+
+
+
+# Existing Shopware Clone or Zip
+
+Unzip or Clone Shopware project. 
+
+Enable debug mode from config.php
+
+```php
+<?php
+ini_set('log_errors', 1);
+ini_set('error_log', __DIR__.'/php-error.log');
+return [
+    'db' => [
+        'username' => 'root',
+        'password' => '123',
+        'dbname' => 'shop',
+        'host' => 'localhost',
+        'port' => '3306',
+    ],
+
+	'front' => [
+        'showException' => true,
+      'throwExceptions' => true,
+      'noErrorHandler' => true,
+         ],
+
+
+ 'httpcache' => [
+        'debug' => true
+    ],
+
+    'phpsettings' => [
+        'display_errors' => 1,
+    ],
+];
+```
+
+Change project directory permission.
+
+```bash
+sudo chown -R naim /var/www/shopware/
+sudo chgrp -R www-data /var/www/shopware/
+sudo chmod -R 755 /var/www/shopware/
+sudo chmod g+s /var/www/shopware/
+```
+
+Change all the directories to 755
+
+```bash
+sudo find /var/www/shopware -type d -exec chmod 755 {} \;
+```
+
+Change all the files to 644
+
+```php
+sudo find /var/www/shopware -type f -exec chmod 644 {} \;
+```
+
+Change following directories to `0755`
+
+```bash
+sudo chmod -R 755 /var/www/shopware/var/
+sudo chmod -R 755 /var/www/shopware/web/
+sudo chmod -R 755 /var/www/shopware/files/
+sudo chmod -R 755 /var/www/shopware/media/
+sudo chmod -R 755 /var/www/shopware/engine/Shopware/Plugins/Community/
+```
+
+Change following directories permission so webserver can write
+
+```bash
+sudo chmod g+w /var/www/shopware/var/cache/
+sudo chmod g+w /var/www/shopware/var/log/
+```
+
+Clear the cache on console
+
+```bash
+cd ./bin
+php console sw:cache:clear
+```
+

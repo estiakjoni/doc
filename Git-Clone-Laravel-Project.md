@@ -1,3 +1,12 @@
+* [Git Clone](#git-clone)
+* [Environmental Config File](#environmental-config-file)
+* [Install Dependencies](#install-dependencies)
+* [Generate Your App Key](#generate-your-app-key)
+* [Config cache](#config-cache)
+* [Permission (optional)](#permission-optional)
+
+
+
 ## Git Clone
 
 ```bash
