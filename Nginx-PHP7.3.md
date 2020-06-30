@@ -2,6 +2,7 @@
   * [Install nginx package](#install-nginx-package)
   * [Firewall configure](#firewall-configure)
   * [Server root directory setup](#server-root-directory-setup)
+  * [Tweaking Nginx](#Tweaking-Nginx)
 - [PHP 7.3 Installation](#php-73-installation)
   * [Add PHP 7.3 PPA](#add-php-73-ppa)
   * [Install PHP 7.3 Extensions](#install-php-73-extensions)
@@ -9,13 +10,16 @@
   * [HTTP 80](#http-80)
   * [HTTPS 443](#https-443)
 - [Test PHP Nginx](#test-php-nginx)
+- [Permissions](#Permissions)
+  * [Single user](#Single-user)
+  * [Group of users](#Group-of-users)
 ________
 
 
-# Nginx Installation
+## Nginx Installation
 In order to display web pages to our site visitors, we are going to employ Nginx, a modern, efficient web server.
 
-## Install nginx package
+##### Install nginx package
 
 ```shell
 sudo apt update
@@ -23,7 +27,9 @@ sudo apt install nginx
 ```
 After accepting the procedure, apt will install Nginx and any required dependencies to your server.
 
-## Firewall configure
+
+
+##### Firewall configure
 
 After install Nginx, the firewall software needs to be adjusted to allow access to the service. Nginx registers itself as a service with **ufw** upon installation, making it straightforward to allow Nginx access.
 
@@ -46,19 +52,15 @@ Available applications:
 ```
 As you can see, there are three profiles available for Nginx:
 
-<ul>
-<li>
-Nginx Full: This profile opens both port 80 (normal, unencrypted web traffic) and port 443 (TLS/SSL encrypted traffic).
-</li>
+- Nginx Full: This profile opens both port 80 (normal, unencrypted web traffic) and port 443 (TLS/SSL encrypted traffic).
 
-<li>
-Nginx HTTP: This profile opens only port 80 (normal, unencrypted web traffic).
-</li>
 
-<li>
-Nginx HTTPS: This profile opens only port 443 (TLS/SSL encrypted traffic).
-</li>
-</ul>
+- Nginx HTTP: This profile opens only port 80 (normal, unencrypted web traffic).
+
+
+- Nginx HTTPS: This profile opens only port 443 (TLS/SSL encrypted traffic).
+
+
 
 It is recommended that you enable the most restrictive profile that will still allow the traffic you’ve configured. Since we will configure SSL for our server in this guide, we will only need to allow traffic on port 443.
 
@@ -89,7 +91,9 @@ OpenSSH (v6)               ALLOW       Anywhere (v6)
 Nginx HTTP (v6)            ALLOW       Anywhere (v6)
 ```
 
-## Server root directory setup
+
+
+##### Server root directory setup
 
 Nginx on Ubuntu 18.04 has one server block enabled by default that is configured to serve documents out of a directory at **/var/www/html**. While this works well for a single site, it can become unwieldy if you are hosting multiple sites. Instead of modifying **/var/www/html**, let’s create a directory structure within **/var/www** for our **example.com** site, leaving **/var/www/html** in place as the default directory to be served if a client request doesn’t match any other sites.
 
@@ -112,6 +116,10 @@ sudo chmod g+w /var/www/your_domain/uploads
 # To check permission
 ls -l
 ```
+
+
+
+##### Tweaking Nginx
 
 To avoid a possible hash bucket memory problem that can arise from adding additional server names, it is necessary to adjust a single value in the <code>/etc/nginx/nginx.conf</code> file. Open the file:
 
@@ -145,11 +153,15 @@ sudo systemctl reload nginx
 ```
 
 
-# PHP 7.3 Installation
+
+## PHP 7.3 Installation
 
 PHP 7.3 for Ubuntu and Debian is available from ondrej/php PPA repository. PHP 7.3 stable version has been released with many new features and bug fixes.
 
-## Add PHP 7.3 PPA
+
+
+##### Add PHP 7.3 PPA
+
 Add ondrej/php which has PHP 7.3 package and other required PHP extensions.
 
 
@@ -158,7 +170,10 @@ sudo add-apt-repository ppa:ondrej/php && sudo apt-get update
 ```
 This PPA can be added to your system manually by copying the lines below and adding them to your system’s software sources.
 
-## Install PHP 7.3 Extensions
+
+
+##### Install PHP 7.3 Extensions
+
 Once the PPA repository has been added, install php 7.3 on your Ubuntu/Debian.
 
 ```shell
@@ -254,6 +269,8 @@ server {
 }
 ```
 
+
+
 ## HTTPS 443
 
 Create your_domain name directory for certificate and private key
@@ -324,6 +341,8 @@ server {
      }
 }
 ```
+
+
 
 For Laravel App host: [https://laravel.com/docs/master/deployment#nginx](https://laravel.com/docs/master/deployment#nginx)
 
@@ -469,3 +488,94 @@ For now, remove the file by typing:
 ```shell
 sudo rm /var/www/your_domain/info.php
 ```
+
+
+
+### Permissions
+
+
+
+##### Define the requirements
+
+- Developers need read/write access to files so they can update the website.
+- Developers need read/write/execute on directories so they can browse around.
+- Apache needs read access to files and interpreted scripts.
+- Apache needs read/execute access to serveable directories.
+- Apache needs read/write/execute access to directories for uploaded content.
+
+
+
+##### Single user
+
+If only one user is responsible for maintaining the site, set them as the user owner on the website directory and give the user full rwx permissions. Apache still needs access so that it can serve the files, so set www-data as the group owner and give the group r-x permissions.
+
+In your case, `Naim`, whose username might be `naim`, is the only user who maintains `thenaim.com`:
+
+```bash
+sudo chown -R naim thenaim.com/
+sudo chgrp -R www-data thenaim.com/
+sudo chmod -R 750 thenaim.com/
+sudo chmod g+s thenaim.com/
+```
+
+If you have folders that need to be writable by Apache, you can just modify the permission values for the group owner so that www-data has write access.
+
+```bash
+sudo chmod g+w uploads
+```
+
+Now, All the directories and sub-directories to 750 and All the files change to 640
+
+```bash
+sudo find /var/www/project -type d -exec chmod 750 {} \;
+sudo find /var/www/project -type f -exec chmod 640 {} \;
+```
+
+
+
+##### Group of users
+
+If more than one user is responsible for maintaining the site, you will need to create a group to use for assigning permissions. It's good practice to create a separate group for each website, and name the group after that website.
+
+```bash
+sudo groupadd dev-thenaim
+sudo usermod -a -G dev-thenaim naim
+sudo usermod -a -G dev-thenaim roni
+```
+
+In the previous example, we used the group owner to give privileges to Apache, but now that is used for the developers group. Since the user owner isn't useful to us anymore, setting it to root is a simple way to ensure that no privileges are leaked. Apache still needs access, so we give read access to the rest of the world.
+
+```bash
+sudo chown -R root thenaim.com
+sudo chgrp -R dev-thenaim thenaim.com
+sudo chmod -R 775 thenaim.com
+sudo chmod g+s thenaim.com
+```
+
+If you have folders that need to be writable by Apache, you can make Apache either the user owner or the group owner. Either way, it will have all the access it needs. Personally, I prefer to make it the user owner so that the developers can still browse and modify the contents of upload folders.
+
+```bash
+sudo chown -R www-data uploads
+```
+
+Although this is a common approach, there is a downside. Since every other user on the system has the same privileges to your website as Apache does, it's easy for other users to browse your site and read files that may contain secret data, such as your configuration files. 
+
+You can have your cake and eat it too. This can be further improved upon. It's perfectly legal for the owner to have less privileges than the group, so instead of wasting the user owner by assigning it to root, we can make Apache the user owner on the directories and files on your website. This is a reversal of the single maintainer scenario, but it works equally well.
+
+```bash
+sudo chown -R www-data thenaim.com
+sudo chgrp -R dev-thenaim thenaim.com
+sudo chmod -R 570 thenaim.com
+sudo chmod g+s thenaim.com
+```
+
+If you have folders that need to be writable by Apache, you can just modify the permission values for the user owner so that www-data has write access
+
+```bash
+sudo chmod u+w uploads
+```
+
+One thing to be careful about with this solution is that the user owner of new files will match the creator instead of being set to www-data. So any new files you create won't be readable by Apache until you chown them.
+
+
+
