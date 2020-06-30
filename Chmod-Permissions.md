@@ -43,7 +43,7 @@ The octal number is the sum of those free permissions, i.e.
 
 
 
-**Others **
+**Others**
 
 - `chmod 744` - Owner can `Read`,  `Write` and `Execute`  | Group can `Read` | Public can `Read`
 - `chmod 666` - Owner can `Read` and  `Write`  | Group can `Read` and `Write` | Public can `Read` and `Write`
