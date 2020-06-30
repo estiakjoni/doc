@@ -294,30 +294,30 @@ Change project directory permission.
 ```bash
 sudo chown -R naim /var/www/shopware/
 sudo chgrp -R www-data /var/www/shopware/
-sudo chmod -R 755 /var/www/shopware/
+sudo chmod -R 775 /var/www/shopware/
 sudo chmod g+s /var/www/shopware/
 ```
 
-Change all the directories to 755
+Change all the directories to 775
 
 ```bash
-sudo find /var/www/shopware -type d -exec chmod 755 {} \;
+sudo find /var/www/shopware -type d -exec chmod 775 {} \;
 ```
 
 Change all the files to 644
 
 ```php
-sudo find /var/www/shopware -type f -exec chmod 644 {} \;
+sudo find /var/www/shopware -type f -exec chmod 775 {} \;
 ```
 
 Change following directories to `0755`
 
 ```bash
-sudo chmod -R 755 /var/www/shopware/var/
-sudo chmod -R 755 /var/www/shopware/web/
-sudo chmod -R 755 /var/www/shopware/files/
-sudo chmod -R 755 /var/www/shopware/media/
-sudo chmod -R 755 /var/www/shopware/engine/Shopware/Plugins/Community/
+sudo chmod -R 775 /var/www/shopware/var/
+sudo chmod -R 775 /var/www/shopware/web/
+sudo chmod -R 775 /var/www/shopware/files/
+sudo chmod -R 775 /var/www/shopware/media/
+sudo chmod -R 775 /var/www/shopware/engine/Shopware/Plugins/Community/
 ```
 
 Change following directories permission so webserver can write
@@ -332,5 +332,12 @@ Clear the cache on console
 ```bash
 cd ./bin
 php console sw:cache:clear
+```
+
+Create new admin user
+
+```bash
+cd ./bin
+php console sw:admin:create
 ```
 
