@@ -55,7 +55,9 @@ The octal number is the sum of those free permissions, i.e.
 
 
 
-**All the directories and sub-directories**. To change all the directories to 755
+**All the directories and sub-directories**. 
+
+To change all the directories to 755
 
 ```bash
 sudo find /var/www/project -type d -exec chmod 755 {} \;
@@ -63,7 +65,9 @@ sudo find /var/www/project -type d -exec chmod 755 {} \;
 
 
 
-**All the files**. To change all the files to 644
+**All the files**. 
+
+To change all the files to 644
 
 ```bash
 sudo find /var/www/project -type f -exec chmod 644 {} \;
