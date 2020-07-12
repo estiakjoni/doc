@@ -43,7 +43,7 @@ export PS1="\[\033[38;5;35m\]\u\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\
 With Host
 
 ```bash
-export PS1="\[\033[38;5;35m\]\h\[$(tput sgr0)\]@\[$(tput sgr0)\]\[\033[38;5;35m\]\u\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]\[\033[38;5;184m\]\w\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]\[\033[38;5;31m\]\$(git_branch)\[$(tput sgr0)\]\[\e[1m\]:: \[$(tput sgr0)\]"
+export PS1="\[\033[38;5;35m\]\u\[$(tput sgr0)\]@\[$(tput sgr0)\]\[\033[38;5;35m\]\h\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]\[\033[38;5;184m\]\w\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]\[\033[38;5;31m\]\$(git_branch)\[$(tput sgr0)\]\[\e[1m\]:: \[$(tput sgr0)\]"
 ```
 
 
