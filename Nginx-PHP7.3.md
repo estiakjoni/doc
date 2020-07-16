@@ -596,16 +596,16 @@ sudo nano /etc/nginx/sites-available/disable_server_ip
 
 ```nginx
 server {
-        listen 51.79.156.52:80 default;
-        server_name _;
-        return 404;
-}
-server {
-        listen 51.79.156.52:443 default;
-        server_name _;
-        return 404;
+ listen 80;
+ server_name 51.79.156.52;
+ return 503;
 }
 ```
+
+Enable Site
+```bash
+sudo ln -s /etc/nginx/sites-available/disable_server_ip /etc/nginx/sites-enabled/
+````
 
 
 ## Nginx Basic Auth
