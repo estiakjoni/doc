@@ -579,3 +579,127 @@ One thing to be careful about with this solution is that the user owner of new f
 
 
 
+### Disabling accesing server by ip address
+Now, Create new server block
+```shell
+sudo nano /etc/nginx/sites-available/disable_server_ip
+```
+
+```nginx
+server {
+        listen 51.79.156.52:80 default;
+        server_name _;
+        return 404;
+}
+server {
+        listen 51.79.156.52:443 default;
+        server_name _;
+        return 404;
+}
+```
+
+
+## Nginx Basic Auth
+
+#### Introduction
+
+You can restrict access to your website or some parts of it by implementing a username/password authentication. Usernames and passwords are taken from a file created and populated by a password file creation tool, for example, `apache2-utils`.
+
+HTTP Basic authentication can also be combined with other access restriction methods, for example restricting access by [IP address](https://docs.nginx.com/nginx/admin-guide/security-controls/blacklisting-ip-addresses/) or [geographical location](https://docs.nginx.com/nginx/admin-guide/security-controls/controlling-access-by-geoip/).
+
+
+
+#### Prerequisites
+
+- NGINX Plus or NGINX Open Source
+- Password file creation utility such as `apache2-utils` (Debian, Ubuntu) or `httpd-tools` (RHEL/CentOS/Oracle Linux).
+
+
+
+#### Creating a Password File
+
+To create username-password pairs, use a password file creation utility, for example, `apache2-utils` or `httpd-tools`
+
+1. Verify that `apache2-utils` (Debian, Ubuntu) or `httpd-tools` (RHEL/CentOS/Oracle Linux) is installed.
+
+2. Create a password file and a first user. Run the `htpasswd` utility with the `-c` flag (to create a new file), the file pathname as the first argument, and the username as the second argument:
+
+   ```bash
+   sudo htpasswd -c /etc/nginx/.htpasswd user1
+   ```
+
+   Press Enter and type the password for **user1** at the prompts.
+
+3. Create additional user-password pairs. Omit the `-c` flag because the file already exists:
+
+   ```bash
+   sudo htpasswd /etc/nginx/.htpasswd user2
+   ```
+
+4. You can confirm that the file contains paired usernames and encrypted passwords:
+
+   ```bash
+   cat /etc/apache2/.htpasswd
+   
+   # user1:$apr1$/woC1jnP$KAh0SsVn5qeSMjTtn0E9Q0
+   # user2:$apr1$QdR8fNLT$vbCEEzDj7LyqCMyNpSoBh/
+   # user3:$apr1$Mr5A0e.U$0j39Hp5FfxRkneklXaMrr/
+   ```
+
+
+
+#### Configuring NGINX and NGINX Plus for HTTP Basic Authentication
+
+```nginx
+    location /gui {
+
+      # Auth
+      satisfy all;
+  
+      allow 51.79.156.52;
+      deny  all;
+
+      auth_basic           “AdministratorArea”;
+      auth_basic_user_file /etc/nginx/.htpasswd;
+  
+  	  ........
+   }
+```
+
+
+
+HTTP basic authentication can be effectively combined with access restriction by IP address. You can implement at least two scenarios:
+
+- a user must be both authenticated and have a valid IP address
+- a user must be either authenticated, or have a valid IP address
+
+1. Allow or deny access from particular IP addresses with the [`allow`](https://nginx.org/en/docs/http/ngx_http_access_module.html#allow) and [`deny`](https://nginx.org/en/docs/http/ngx_http_access_module.html#deny) directives:
+
+   ```
+   location /api {
+       #...
+       deny  192.168.1.2;
+       allow 192.168.1.1/24;
+       allow 127.0.0.1;
+       deny  all;
+   }
+   ```
+
+   Access will be granted only for the `192.168.1.1/24` network excluding the `192.168.1.2` address. Note that the `allow` and `deny` directives will be applied in the order they are defined.
+
+2. Combine restriction by IP and HTTP authentication with the [`satisfy`](https://nginx.org/en/docs/http/ngx_http_core_module.html#satisfy) directive. If you set the directive to to `all`, access is granted if a client satisfies both conditions. If you set the directive to `any`, access is granted if if a client satisfies at least one condition:
+
+   ```
+   location /api {
+       #...
+       satisfy all;    
+   
+       deny  192.168.1.2;
+       allow 192.168.1.1/24;
+       allow 127.0.0.1;
+       deny  all;
+   
+       auth_basic           "AdministratorArea";
+       auth_basic_user_file conf/htpasswd;
+   }
+   ```
