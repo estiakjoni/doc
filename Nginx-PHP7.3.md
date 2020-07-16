@@ -202,7 +202,7 @@ By editing a new server block configuration file, rather than editing the defaul
 
 Add the following content, which was taken and slightly modified from the default server block configuration file, to your new server block configuration file:
 
-## HTTP 80
+##### HTTP 80
 
 Now, Create new server block for you domain
 ```shell
@@ -271,7 +271,7 @@ server {
 
 
 
-## HTTPS 443
+##### HTTPS 443
 
 Create your_domain name directory for certificate and private key
 
@@ -450,7 +450,7 @@ When you are ready, reload Nginx to make the necessary changes:
 sudo systemctl reload nginx
 ```
 
-## Test PHP Nginx
+##### Test PHP Nginx
 
 Your nginx and php are ready now. You can test it to validate that Nginx can correctly hand .php files off to the PHP processor.
 
@@ -601,7 +601,7 @@ server {
 
 ## Nginx Basic Auth
 
-#### Introduction
+##### Introduction
 
 You can restrict access to your website or some parts of it by implementing a username/password authentication. Usernames and passwords are taken from a file created and populated by a password file creation tool, for example, `apache2-utils`.
 
@@ -609,14 +609,14 @@ HTTP Basic authentication can also be combined with other access restriction met
 
 
 
-#### Prerequisites
+##### Prerequisites
 
 - NGINX Plus or NGINX Open Source
 - Password file creation utility such as `apache2-utils` (Debian, Ubuntu) or `httpd-tools` (RHEL/CentOS/Oracle Linux).
 
 
 
-#### Creating a Password File
+##### Creating a Password File
 
 To create username-password pairs, use a password file creation utility, for example, `apache2-utils` or `httpd-tools`
 
@@ -648,7 +648,7 @@ To create username-password pairs, use a password file creation utility, for exa
 
 
 
-#### Configuring NGINX and NGINX Plus for HTTP Basic Authentication
+##### Configuring NGINX and NGINX Plus for HTTP Basic Authentication
 
 ```nginx
     location /gui {
