@@ -191,7 +191,7 @@ Check php configuration files
 php --ini
 ```
 
-# Configuring Nginx to Use the PHP Processor
+## Configuring Nginx to Use the PHP Processor
 You now have Nginx installed to serve your pages. However, you still don’t have anything that can generate dynamic content. This is where PHP comes into play.
 
 Since Nginx does not contain native PHP processing like some other web servers, you will need to install php-fpm, which stands for “fastCGI process manager”. We will tell Nginx to pass PHP requests to this software for processing.
@@ -450,7 +450,7 @@ When you are ready, reload Nginx to make the necessary changes:
 sudo systemctl reload nginx
 ```
 
-# Test PHP Nginx
+## Test PHP Nginx
 
 Your nginx and php are ready now. You can test it to validate that Nginx can correctly hand .php files off to the PHP processor.
 
@@ -491,7 +491,7 @@ sudo rm /var/www/your_domain/info.php
 
 
 
-### Permissions
+## Permissions
 
 
 
@@ -579,7 +579,7 @@ One thing to be careful about with this solution is that the user owner of new f
 
 
 
-### Disabling accesing server by ip address
+## Disabling accesing server by ip address
 Now, Create new server block
 ```shell
 sudo nano /etc/nginx/sites-available/disable_server_ip
