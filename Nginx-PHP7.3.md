@@ -13,6 +13,38 @@
 - [Permissions](#Permissions)
   * [Single user](#Single-user)
   * [Group of users](#Group-of-users)
+  
+  
+  
+  
+  
+  
+Table of Contents
+=================
+
+      - [Nginx Installation](#nginx-installation)
+               * [Install nginx package](#install-nginx-package)
+               * [Firewall configure](#firewall-configure)
+               * [Server root directory setup](#server-root-directory-setup)
+               * [Tweaking Nginx](#tweaking-nginx)
+      - [PHP 7.3 Installation](#php-73-installation)
+               * [Add PHP 7.3 PPA](#add-php-73-ppa)
+               * [Install PHP 7.3 Extensions](#install-php-73-extensions)
+      - [Configuring Nginx to Use the PHP Processor](#configuring-nginx-to-use-the-php-processor)
+               * [HTTP 80](#http-80)
+               * [HTTPS 443](#https-443)
+               * [Test PHP Nginx](#test-php-nginx)
+      - [Permissions](#permissions)
+               * [Define the requirements](#define-the-requirements)
+               * [Single user](#single-user)
+               * [Group of users](#group-of-users)
+      - [Disabling accesing server by ip address](#disabling-accesing-server-by-ip-address)
+      - [Nginx Basic Auth](#nginx-basic-auth)
+               * [Introduction](#introduction)
+               * [Prerequisites](#prerequisites)
+               * [Creating a Password File](#creating-a-password-file)
+               * [Configuring NGINX and NGINX Plus for HTTP Basic Authentication](#configuring-nginx-and-nginx-plus-for-http-basic-authentication)
+
 ________
 
 
