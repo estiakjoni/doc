@@ -86,7 +86,9 @@ cat ~/.ssh/id_rsa.pub | pbcopy
 Now lets create an `authorized_keys` file using nano and paste the `id_rsa.pub`. It should be located in `~/ssh/`. Run following command on your `ubuntu server` terminal.
 
 ```bash
-nano ~/.ssh/authorized_keys
+sudo mkdir ~/.ssh && sudo chown -R $USER /home/$USER/
+sudo nano ~/.ssh/authorized_keys
+sudo chmod 700 ~/.ssh/ && sudo chmod 600 ~/.ssh/authorized_keys
 ```
 
 
