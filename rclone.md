@@ -1,5 +1,9 @@
 # rclone
+### Install
 
+```bash
+sudo apt install rclone
+```
 
 
 ### Mount
