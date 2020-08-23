@@ -325,7 +325,7 @@ Run the following commands to uninstall:
 
 ```bash
 sudo pkill utserver && \
-sudo rm -rf /opt/utorrent-server-alpha-v3_3/utserver && \
+sudo rm -rf /opt/utorrent-server-alpha-v3_3 && \
 sudo rm -rf /usr/bin/utserver
 ```
 
