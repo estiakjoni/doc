@@ -61,13 +61,86 @@ You can find more detailed instructions on how to synchronise your object storag
 ### Mount
 
 ```bash
-sudo rclone mount ovh:naim/ /var/www/ovh --daemon --allow-other
+sudo rclone mount ovh:naim/ /var/www/ovh --allow-other
 ```
 
 with buffer
 
 ```bash
-sudo rclone mount ovh:naim/ /var/www/ovh --daemon --allow-other --buffer-size 150M --max-read-ahead 100M --dir-cache-time 150m0s
+sudo rclone mount ovh:naim/ /var/www/ovh --allow-other --buffer-size 150M --max-read-ahead 100M --dir-cache-time 150m0s
+```
+
+
+
+### Auto Start Mount on Ubuntu
+
+Create folder to Mount
+
+```
+sudo mkdir /mnt/ovh
+sudo chown -R $USER:$USER /mnt/ovh
+sudo chmod 777 /mnt/ovh
+```
+
+To enable auto start, we can create a systemd service.
+
+```bash
+sudo nano /etc/systemd/system/ovh.service
+```
+
+Put the following text into the file.
+
+```reStructuredText
+[Unit]
+Description=OVH Mount
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+ExecStart=/usr/bin/rclone mount \
+--allow-other \
+--max-read-ahead=100M \
+ovh:naim/ /mnt/ovh
+ExecStop=/bin/fusermount -u /mnt/ovh
+Restart=always
+SyslogIdentifier=OVH Mount
+
+[Install]
+WantedBy=multi-user.target
+```
+
+
+
+Save and close the file. Then reload systemd.
+
+```bash
+sudo systemctl daemon-reload
+```
+
+Next, Stop
+
+```
+sudo pkill ovh && sudo systemctl stop ovh
+```
+
+Use the systemd service to start.
+
+```
+sudo systemctl start ovh
+```
+
+Enable auto start at boot time.
+
+```
+sudo systemctl enable ovh
+```
+
+Now check satus.
+
+```
+systemctl status ovh
 ```
 
 
