@@ -6,6 +6,7 @@
       - [Sub-domain Configuration](#sub-domain-configuration)
 - [Setting up Apache Reverse Proxy](#setting-up-apache-reverse-proxy)
 - [Uninstall uTorrent](#uninstall-utorrent)
+- [Folders and Permissions](#Folders-and-Permissions)
 ______
 # Download uTorrent
 
@@ -327,5 +328,41 @@ Run the following commands to uninstall:
 sudo pkill utserver && \
 sudo rm -rf /opt/utorrent-server-alpha-v3_3 && \
 sudo rm -rf /usr/bin/utserver
+```
+
+
+
+# Folders and Permissions
+
+Create two folders, one for store download files other store torrent files.
+
+```bash
+sudo mkdir dl
+sudo mkdir torrentfiles
+```
+
+Change `torrentfiles` folder permission
+
+```bash
+sudo chown -R utorrent /home/utorrent/torrentfiles/
+sudo chmod -R 740 /home/utorrent/torrentfiles/
+sudo chmod g+s /home/utorrent/torrentfiles/
+```
+
+Create a new user gorup, this gorup members will have full access of `dl` folder.
+
+```bash
+sudo groupadd torrent-dl
+sudo usermod -a -G torrent-dl ubuntu
+sudo usermod -a -G torrent-dl utorrent
+```
+
+Change `dl` folder permission
+
+```bash
+sudo chown -R www-data /home/utorrent/dl/
+sudo chgrp -R torrent-dl /home/utorrent/dl/
+sudo chmod -R 570 /home/utorrent/dl/
+sudo chmod g+s /home/utorrent/dl/
 ```
 
