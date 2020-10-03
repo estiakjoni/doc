@@ -341,11 +341,19 @@ sudo mkdir dl
 sudo mkdir torrentfiles
 ```
 
+Create a new user gorup, this gorup members will have full access of `torrentfiles` folder.
+
+```bash
+sudo groupadd torrent-files
+sudo usermod -a -G torrent-files ubuntu
+```
+
 Change `torrentfiles` folder permission
 
 ```bash
 sudo chown -R utorrent /home/utorrent/torrentfiles/
-sudo chmod -R 740 /home/utorrent/torrentfiles/
+sudo chgrp -R torrent-files /home/utorrent/torrentfiles/
+sudo chmod -R 770 /home/utorrent/torrentfiles/
 sudo chmod g+s /home/utorrent/torrentfiles/
 ```
 
@@ -354,15 +362,15 @@ Create a new user gorup, this gorup members will have full access of `dl` folder
 ```bash
 sudo groupadd torrent-dl
 sudo usermod -a -G torrent-dl ubuntu
-sudo usermod -a -G torrent-dl utorrent
+sudo usermod -a -G torrent-dl www-data
 ```
 
 Change `dl` folder permission
 
 ```bash
-sudo chown -R www-data /home/utorrent/dl/
+sudo chown -R utorrent /home/utorrent/dl/
 sudo chgrp -R torrent-dl /home/utorrent/dl/
-sudo chmod -R 570 /home/utorrent/dl/
+sudo chmod -R 770 /home/utorrent/dl/
 sudo chmod g+s /home/utorrent/dl/
 ```
 
