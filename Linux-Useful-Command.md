@@ -60,3 +60,17 @@ systemd-resolve --status
 curl -s ipv6.icanhazip.com | xargs echo -n
 ```
 
+
+
+#### Directories listing with their total sizes
+
+```bash
+du -sh *
+```
+
+short version of:
+
+```bash
+du --summarize --human-readable *
+```
+
