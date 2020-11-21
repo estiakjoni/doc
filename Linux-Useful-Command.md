@@ -74,3 +74,16 @@ short version of:
 du --summarize --human-readable *
 ```
 
+
+#### Show network interfaces
+
+```bash
+netstat -i
+```
+
+
+#### Show network interfaces with ip
+
+```bash
+arp -n
+```
