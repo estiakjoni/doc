@@ -75,6 +75,19 @@ du --summarize --human-readable *
 ```
 
 
+#### Show network interfaces
+
+```bash
+netstat -i
+```
+
+
+#### Show network interfaces with ip
+
+```bash
+arp -n
+```
+
 
 #### Check the linux kernel version
 
