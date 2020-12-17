@@ -74,3 +74,65 @@ short version of:
 du --summarize --human-readable *
 ```
 
+
+
+#### Check the linux kernel version
+
+```bash
+uname -a
+```
+
+
+
+#### Check free disk space
+
+```bash
+df -ah
+```
+
+
+
+#### Check open port in linux
+
+```bash
+netstat -tupln
+```
+
+
+
+#### Check CPU process
+
+```bash
+ps aux
+```
+
+OR
+
+```bash
+ps aux | grep nginx
+```
+
+OR
+
+```bash
+top
+```
+
+OR
+
+```bash
+htop
+```
+
+
+
+#### Look up something don't know
+
+```bash
+man <command>
+```
+
+```bash
+man ps
+```
+
