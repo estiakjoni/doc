@@ -4,7 +4,7 @@
 
 
 
-## Verify Whether your system support hardware virtualization
+## Verify whether your system support hardware virtualization
 
 ```bash
 egrep -c '(vmx|svm)' /proc/cpuinfo
@@ -14,7 +14,7 @@ If the output is greater than 0 then it means your system supports Virtualizatio
 
 
 
-## Install KVM and its required packages
+## Install KVM required packages
 
 ```bash
 sudo apt install -y qemu qemu-kvm libvirt-daemon libvirt-clients bridge-utils virt-manager
@@ -46,9 +46,16 @@ To check if the KVM modules are loaded, run the command:
 lsmod | grep -i kvm
 ```
 
+#### User & Groups
+
+```bash
+sudo adduser $USER libvirt && \
+sudo adduser $USER kvm
+```
 
 
-## Configure Network Bridge for KVM virtual Machines
+
+## Network Bridge for KVM virtual Machines
 
 Network bridge is required to access the KVM based virtual machines outside the KVM hypervisor or host. In Ubuntu 18.04, network is managed by netplan utility, whenever we freshly installed Ubuntu 18.04 server then netplan file is created under **/etc/netplan/.**
 
@@ -113,7 +120,38 @@ ip a
 
 
 
-## Create a virtual machine
+## Create a guest instance
+
+Before creating the guest VM, we need to ensure the Guest OS is supported by the KVM, can check  by running the following command :
+
+```bash
+sudo apt install -y libosinfo-bin
+```
+
+```bash
+osinfo-query os
+```
+
+**virt-install usage:**
+
+|                          Arguments                           |                           Remarks                            |
+| :----------------------------------------------------------: | :----------------------------------------------------------: |
+|                        --name VM_NAME                        |                  Name of the guest instance                  |
+|                        --memory 1024                         |           Configure guest memory allocation in MiB           |
+|            --memory memory=1024,currentMemory=512            | Configure guest memory allocation maximum and current in MiB |
+|                          --vcpus 1                           |         Number of vcpus to configure for your guest          |
+|                    --vcpus 5,maxvcpus=10                     | Current and maximum number of vcpus to configure for your guest |
+|                   --os-variant ubuntu18.04                   |             The OS being installed in the guest              |
+|                        --disk size=10                        |     Specify storage with 10GiB image in default location     |
+| --disk path=/mtn/kvm/ubuntu.qcow2,format=qcow2,bus=virtio,size=10 |        Specify storage with location, format and size        |
+|                     --network bridge=br0                     |             Configure a guest network interface              |
+|                       --graphics none                        |               Configure guest display settings               |
+|                --cdrom /home/user/ubuntu.iso                 |                  CD-ROM installation media                   |
+|       --extra-args="console=tty0 console=ttyS0,115200"       | Additional arguments to pass to the install kernel booted from --location |
+|                       --check all=off                        |             Enable or disable validation checks              |
+|                            --hvm                             | [Optional] This guest should be a fully virtualized guest. Create a fully-virtualized Windows guest using the command-line (`virt-install`), launch the operating system's installer inside the guest, and access the installer through `virt-viewer`. |
+
+
 
 ```
 export ISO="/home/naim/Downloads/ubuntu-18.04.5-live-server-amd64.iso"
@@ -132,58 +170,58 @@ sudo virt-install \
 
 
 
-## virsh KVM management
+## Virsh KVM management
 
 Let us see some useful commands for managing VMs.
 
 #### List all VMs
 
 ```bash
-sudo virsh list --all
+virsh list --all
 ```
 
 #### Get VM info
 
 ```bash
-sudo virsh dominfo vmname
+virsh dominfo vmname
 ```
 
 #### Stop/shutdown a VM
 
 ```bash
-sudo virsh shutdown vmname
+virsh shutdown vmname
 ```
 
 #### Start VM
 
 ```bash
-sudo virsh start vmname
+virsh start vmname
 ```
 
-#### Mark VM for autostart at CentOS 8 server boot time
+#### Mark VM for autostart at server boot time
 
 ```bash
-sudo virsh autostart vmname
+virsh autostart vmname
 ```
 
 #### Reboot (soft & safe reboot) VM
 
 ```bash
-sudo virsh reboot vmname
+virsh reboot vmname
 ```
 
-#### Reset (hard reset/not safe) VM [last resort]
+#### Reset (hard reset/not safe) VM
 
 ```bash
-sudo virsh reset vmname
+virsh reset vmname
 ```
 
 #### Delete VM
 
 ```bash
-sudo virsh shutdown vmname
-sudo virsh undefine vmname
-sudo virsh pool-destroy vmname
+virsh shutdown vmname
+virsh undefine vmname
+virsh pool-destroy vmname
 D=/var/lib/libvirt/images
 VM=centos8-vm1.img 
 sudo rm -ri $D/$VM
@@ -192,33 +230,97 @@ sudo rm -ri $D/$VM
 #### List the current snapshots
 
 ```bash
-sudo virsh snapshot-list vmname
+virsh snapshot-list vmname
 ```
 
 #### Create a Snapshot
 
 ```bash
-sudo virsh snapshot-create-as --domain vmname --name "snapshot_name" --description "my description"
-sudo virsh snapshot-list vmname
+virsh snapshot-create-as --domain vmname --name "snapshot_name" --description "my description"
+virsh snapshot-list vmname
 ```
 
 #### To check the details of a snapshot
 
 ```bash
-sudo virsh snapshot-list vmname
-sudo virsh snapshot-info --domain vmname --current
+virsh snapshot-list vmname
+virsh snapshot-info --domain vmname --current
 ```
 
 #### To revert to a snapshot [snapshot restore]
 
 ```bash
-sudo virsh shutdown vmname
-sudo virsh snapshot-revert --domain vmname --snapshotname "snapshot_name" --running
+virsh shutdown vmname
+virsh snapshot-revert --domain vmname --snapshotname "snapshot_name" --running
 ```
 
 #### To delete a snapshot
 
 ```bash
-sudo virsh snapshot-delete --domain vmname --snapshotname "snapshot_name"
+virsh snapshot-delete --domain vmname --snapshotname "snapshot_name"
+```
+
+
+
+## Storage Pool
+
+As a default, there is one storage pool which called “**Default**” uses the **rootfs** partition to store vm’s volumes under **/var/lib/libvirt/images** path.
+
+```bash
+virsh pool-list
+```
+
+I want to use the directory `/mnt/kvm/` which is mounted over `/dev/sda5`, as the default Storage Pool for all future situations. I will use `/dev/sda5` as my partition, you may have a different one. Make sure you have mounted it properly.
+
+```bash
+sudo mount -t ext4 /dev/sda5 /mnt/kvm/
+```
+
+**Listing current pools:**
+
+```bash
+virsh pool-list
+```
+
+**Destroying pool:**
+
+```bash
+virsh pool-destroy default
+```
+
+**Undefine pool:**
+
+```bash
+virsh pool-undefine default
+```
+
+**Creating a directory to host the new pool (if it does not exist):**
+
+```
+sudo mkdir /mnt/kvm/
+```
+
+**Defining a new pool with name "default":**
+
+```bash
+virsh pool-define-as --name default --type dir --target /mnt/kvm/
+```
+
+**Set pool to be started when libvirt daemons starts:**
+
+```bash
+virsh pool-autostart default
+```
+
+**Start pool:**
+
+```bash
+virsh pool-start default
+```
+
+**Checking pool state:**
+
+```bash
+virsh pool-list
 ```
 
