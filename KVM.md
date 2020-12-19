@@ -132,13 +132,15 @@ sudo apt install -y libosinfo-bin
 osinfo-query os
 ```
 
+
+
 **virt-install usage:**
 
 |                          Arguments                           |                           Remarks                            |
 | :----------------------------------------------------------: | :----------------------------------------------------------: |
 |                        --name VM_NAME                        |                  Name of the guest instance                  |
 |                        --memory 1024                         |           Configure guest memory allocation in MiB           |
-|            --memory memory=1024,currentMemory=512            | Configure guest memory allocation maximum and current in MiB |
+|                 --memory 512,maxmemory=1024                  | Configure guest memory allocation maximum and current in MiB |
 |                          --vcpus 1                           |         Number of vcpus to configure for your guest          |
 |                    --vcpus 5,maxvcpus=10                     | Current and maximum number of vcpus to configure for your guest |
 |                   --os-variant ubuntu18.04                   |             The OS being installed in the guest              |
@@ -153,19 +155,35 @@ osinfo-query os
 
 
 
-```
-export ISO="/home/naim/Downloads/ubuntu-18.04.5-live-server-amd64.iso"
-export NAME="VPN-Gateway"
+#### Headless Guest VM
 
+```bash
 sudo virt-install \
---virt-type kvm \
---name ${NAME} \
---memory 1024 \
---vcpus 1 \
---hvm \
---cdrom ${ISO} \
+--name Ubuntu \
+--os-variant=ubuntu18.04 \
+--memory 512,maxmemory=1024 \
+--vcpus=1 \
+--disk size=20 \
+--cdrom 'iso/ubuntu18.04.5-server.iso' \
 --network bridge:br0 \
---disk size=10
+--hvm \
+--graphics vnc,port=5901,listen=0.0.0.0
+```
+
+
+
+#### Virt-manager Guest VM
+
+```bash
+sudo virt-install \
+--name Ubuntu \
+--os-variant=ubuntu18.04 \
+--memory 512,maxmemory=1024 \
+--vcpus=1 \
+--disk size=20 \
+--cdrom 'iso/ubuntu18.04.5-server.iso' \
+--network bridge:br0 \
+--hvm
 ```
 
 
@@ -177,87 +195,89 @@ Let us see some useful commands for managing VMs.
 #### List all VMs
 
 ```bash
-virsh list --all
+sudo virsh list --all
 ```
 
 #### Get VM info
 
 ```bash
-virsh dominfo vmname
+sudo virsh dominfo vmname
 ```
 
 #### Stop/shutdown a VM
 
 ```bash
-virsh shutdown vmname
+sudo virsh shutdown vmname
 ```
 
 #### Start VM
 
 ```bash
-virsh start vmname
+sudo virsh start vmname
 ```
 
 #### Mark VM for autostart at server boot time
 
 ```bash
-virsh autostart vmname
+sudo virsh autostart vmname
 ```
 
 #### Reboot (soft & safe reboot) VM
 
 ```bash
-virsh reboot vmname
+sudo virsh reboot vmname
 ```
 
 #### Reset (hard reset/not safe) VM
 
 ```bash
-virsh reset vmname
+sudo virsh reset vmname
 ```
 
 #### Delete VM
 
 ```bash
-virsh shutdown vmname
-virsh undefine vmname
-virsh pool-destroy vmname
+export VMNAME="ubuntu"
+
+sudo virsh shutdown ${VMNAME}
+sudo virsh destroy ${VMNAME}
+sudo virsh undefine ${VMNAME}
+sudo virsh pool-destroy ${VMNAME}
 D=/var/lib/libvirt/images
-VM=centos8-vm1.img 
-sudo rm -ri $D/$VM
+sudo rm -rf $D/${VMNAME}.qcow2
 ```
 
 #### List the current snapshots
 
 ```bash
-virsh snapshot-list vmname
+sudo virsh snapshot-list vmname
 ```
 
 #### Create a Snapshot
 
 ```bash
-virsh snapshot-create-as --domain vmname --name "snapshot_name" --description "my description"
-virsh snapshot-list vmname
+sudo virsh snapshot-create-as --domain vmname --name "snapshot_name" --description "my description"
+sudo virsh snapshot-list vmname
 ```
 
 #### To check the details of a snapshot
 
 ```bash
-virsh snapshot-list vmname
-virsh snapshot-info --domain vmname --current
+sudo virsh snapshot-list vmname
+sudo virsh snapshot-info --domain vmname --current
 ```
 
 #### To revert to a snapshot [snapshot restore]
 
 ```bash
-virsh shutdown vmname
-virsh snapshot-revert --domain vmname --snapshotname "snapshot_name" --running
+sudo virsh shutdown vmname
+sudo virsh snapshot-revert --domain vmname --snapshotname "snapshot_name" --running
 ```
 
 #### To delete a snapshot
 
 ```bash
-virsh snapshot-delete --domain vmname --snapshotname "snapshot_name"
+sudo virsh snapshot-delete --domain vmname --snapshotname "snapshot_name"
 ```
 
 
