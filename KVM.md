@@ -17,7 +17,13 @@ If the output is greater than 0 then it means your system supports Virtualizatio
 ## Install KVM required packages
 
 ```bash
-sudo apt install -y qemu qemu-kvm libvirt-daemon libvirt-clients bridge-utils virt-manager
+sudo apt install -y qemu qemu-kvm libvirt-daemon libvirt-clients bridge-utils
+```
+
+**Optional:** Install virt-manager (graphical user interface). If you are working on a desktop computer you might want to install a GUI tool to manage virtual machines.
+
+```bash
+sudo apt install -y virt-manager
 ```
 
 A little explanation of the above packages.
@@ -183,7 +189,8 @@ sudo virt-install \
 --disk size=20 \
 --cdrom 'iso/ubuntu18.04.5-server.iso' \
 --network bridge:br0 \
---hvm
+--hvm \
+--console pty,target_type=serial
 ```
 
 
