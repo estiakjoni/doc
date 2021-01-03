@@ -17,7 +17,7 @@ If the output is greater than 0 then it means your system supports Virtualizatio
 ## Install KVM required packages
 
 ```bash
-sudo apt install -y qemu qemu-kvm libvirt-daemon libvirt-clients bridge-utils
+sudo apt install -y qemu qemu-kvm libvirt-bin virtinst libosinfo-bin bridge-utils 
 ```
 
 **Optional:** Install virt-manager (graphical user interface). If you are working on a desktop computer you might want to install a GUI tool to manage virtual machines.
@@ -30,11 +30,11 @@ A little explanation of the above packages.
 
 - The **qemu** package (quick emulator) is an application that allows you to perform hardware virtualization.
 - The **qemu-kvm** package is the main KVM package.
-- The **libvritd-daemon** is the virtualization daemon.
+- The **libvirt-bin** is the virtualization daemon.
 - The **bridge-utils** package helps you create a bridge connection to allow other users to access a virtual machine other than the host system.
 - The **virt-manager** is an application for managing virtual machines through a graphical user interface.
 
-Before proceeding further, we need to confirm that the virtualization daemon – **libvritd-daemon** – is running. To do so, execute the command.
+Before proceeding further, we need to confirm that the virtualization daemon – **libvritd** – is running. To do so, execute the command.
 
 ```bash
 sudo systemctl status libvirtd
@@ -61,9 +61,11 @@ sudo adduser $USER kvm
 
 
 
-## Network Bridge for KVM virtual Machines
+## Network Bridge
 
-Network bridge is required to access the KVM based virtual machines outside the KVM hypervisor or host. In Ubuntu 18.04, network is managed by netplan utility, whenever we freshly installed Ubuntu 18.04 server then netplan file is created under **/etc/netplan/.**
+Network bridge almost like a network switch, and in a software sense, it is used to implement the concept of a “**virtual network switch**”. A typical use case of software network bridging is in a virtualization environment to connect virtual machines (VMs) directly to the host server network. This way, the VMs are deployed on the same subnet as the host and can access services such as **DHCP** and much more.
+
+In Ubuntu 18.04, network is managed by netplan utility, whenever we freshly installed Ubuntu 18.04 server then netplan file is created under **/etc/netplan/**
 
 ```bash
 ls /etc/netplan/
@@ -109,7 +111,7 @@ network:
         addresses: [8.8.8.8,1.1.1.1]
 ```
 
-As you can see we have removed the IP address from interface(ens33) and add the same IP to the bridge ‘**br0**‘ and also added interface (ens33) to the bridge br0. Apply these changes using below netplan command:
+As you can see we have removed the IP address from interface (enp2s0) and add the same IP to the bridge ‘**br0**‘ and also added interface (enp2s0) to the bridge br0. Apply these changes using below netplan command:
 
 ```bash
 sudo netplan try
@@ -129,10 +131,6 @@ ip a
 ## Create a guest instance
 
 Before creating the guest VM, we need to ensure the Guest OS is supported by the KVM, can check  by running the following command :
-
-```bash
-sudo apt install -y libosinfo-bin
-```
 
 ```bash
 osinfo-query os
@@ -170,7 +168,7 @@ sudo virt-install \
 --memory 512,maxmemory=1024 \
 --vcpus=1 \
 --disk size=20 \
---cdrom 'iso/ubuntu18.04.5-server.iso' \
+--cdrom 'iso/ubuntu-18.04.5-live-server-amd64.iso' \
 --network bridge:br0 \
 --hvm \
 --graphics vnc,port=5901,listen=0.0.0.0
@@ -187,7 +185,7 @@ sudo virt-install \
 --memory 512,maxmemory=1024 \
 --vcpus=1 \
 --disk size=20 \
---cdrom 'iso/ubuntu18.04.5-server.iso' \
+--cdrom 'iso/ubuntu-18.04.5-live-server-amd64.iso' \
 --network bridge:br0 \
 --hvm \
 --console pty,target_type=serial
