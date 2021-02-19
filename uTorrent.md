@@ -27,8 +27,8 @@ apt install libssl1.0.0 libssl-dev
 **[Optional] Download dependencies and install pkg: [docs](https://packages.debian.org/jessie/libssl1.0.0)**
 
 ```bash
-wget http://security.debian.org/debian-security/pool/updates/main/o/openssl/libssl1.0.0_1.0.1t-1+deb8u11_amd64.deb && \
-sudo dpkg --install libssl1.0.0_1.0.1t-1+deb8u11_amd64.deb
+wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl1.0/libssl1.0.0_1.0.2n-1ubuntu5.5_amd64.deb
+sudo apt install ./libssl1.0.0_1.0.2n-1ubuntu5.5_amd64.deb
 ```
 
 
