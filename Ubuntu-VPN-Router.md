@@ -113,9 +113,60 @@ ifconfig -s
 Now allow your local network traffic pass through in the VPN tunnel:
 
 ```bash
-sudo iptables -t nat -A POSTROUTING -o tun0 -j MASQUERADE && \
-sudo iptables -A FORWARD -i tun0 -o ens3 -m state --state RELATED,ESTABLISHED -j ACCEPT && \
-sudo iptables -A FORWARD -i ens3 -o tun0 -j ACCEPT
+# Flush
+  iptables -t nat -F
+  iptables -t mangle -F
+  iptables -F
+  iptables -X
+
+  # Block All
+  iptables -P OUTPUT DROP
+  iptables -P INPUT DROP
+  iptables -P FORWARD DROP
+
+  # Allow Localhost
+  iptables -A INPUT -i lo -j ACCEPT
+  iptables -A OUTPUT -o lo -j ACCEPT
+
+  # Make sure you can communicate with any DHCP server
+  iptables -A OUTPUT -d 255.255.255.255 -j ACCEPT
+  iptables -A INPUT -s 255.255.255.255 -j ACCEPT
+
+  # Make sure that you can communicate within your own network
+  iptables -A INPUT -s $ip_prefix -d $ip_prefix -j ACCEPT
+  iptables -A OUTPUT -s $ip_prefix -d $ip_prefix -j ACCEPT
+
+  # Allow established sessions to receive traffic:
+  iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+  # Allow TUN
+  iptables -A INPUT -i tun+ -j ACCEPT
+  iptables -A FORWARD -i tun+ -j ACCEPT
+  iptables -A FORWARD -o tun+ -j ACCEPT
+  iptables -t nat -A POSTROUTING -o tun+ -j MASQUERADE
+  iptables -A OUTPUT -o tun+ -j ACCEPT
+
+  # Allow DNS connection
+  iptables -I OUTPUT 1 -p udp --dport 53 -m comment --comment "Allow DNS UDP" -j ACCEPT
+  iptables -I OUTPUT 1 -p tcp --dport 53 -m comment --comment "Allow DNS TCP" -j ACCEPT
+
+  # Allow NTP connection
+  iptables -I OUTPUT 2 -p udp --dport 123 -m comment --comment "Allow NTP" -j ACCEPT
+
+  # Allow VPN connection
+  iptables -I OUTPUT 3 -p udp --dport 1194 -m comment --comment "Allow VPN" -j ACCEPT
+
+  # Block All
+  iptables -A OUTPUT -j DROP
+  iptables -A INPUT -j DROP
+  iptables -A FORWARD -j DROP
+
+  # Log all dropped packages, debug only.
+  iptables -N logging
+  iptables -A INPUT -j logging
+  iptables -A OUTPUT -j logging
+  iptables -A logging -m limit --limit 2/min -j LOG --log-prefix "IPTables general: " --log-level 7
+  iptables -A logging -j DROP
 ```
 
 Iptables rules are by default not persistent after a reboot. To make iptables rules persistent after reboot, install following package:
