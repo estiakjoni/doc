@@ -16,9 +16,16 @@ If the output is greater than 0 then it means your system supports Virtualizatio
 
 ## Install KVM required packages
 
+**Ubuntu 18.04**
 ```bash
 sudo apt install -y qemu qemu-kvm libvirt-bin virtinst libosinfo-bin bridge-utils 
 ```
+
+**Ubuntu 20.04**
+```bash
+sudo apt install -y qemu-kvm virtinst libvirt-daemon libosinfo-bin bridge-utils
+```
+
 
 **Optional:** Install virt-manager (graphical user interface). If you are working on a desktop computer you might want to install a GUI tool to manage virtual machines.
 
@@ -30,7 +37,7 @@ A little explanation of the above packages.
 
 - The **qemu** package (quick emulator) is an application that allows you to perform hardware virtualization.
 - The **qemu-kvm** package is the main KVM package.
-- The **libvirt-bin** is the virtualization daemon.
+- The **libvirt-bin | libvirt-daemon** is the virtualization daemon.
 - The **bridge-utils** package helps you create a bridge connection to allow other users to access a virtual machine other than the host system.
 - The **virt-manager** is an application for managing virtual machines through a graphical user interface.
 
