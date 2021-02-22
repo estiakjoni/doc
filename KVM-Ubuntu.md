@@ -1,4 +1,4 @@
-# KMV
+# KVM
 
 **KVM** (Kernel-based Virtual Machine) is an open source full virtualization solution for Linux like systems, KVM provides virtualization functionality using the virtualization extensions like **Intel VT** or **AMD-V**.
 
