@@ -66,6 +66,17 @@ sudo adduser $USER libvirt && \
 sudo adduser $USER kvm
 ```
 
+```bash
+echo 'user = "naim"' | sudo tee -a /etc/libvirt/qemu.conf
+echo 'group = "naim"' | sudo tee -a /etc/libvirt/qemu.conf
+```
+
+
+#### Restart
+
+```bash
+sudo systemctl restart libvirtd
+```
 
 
 ## Network Bridge
