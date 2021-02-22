@@ -23,7 +23,7 @@ sudo apt install -y qemu qemu-kvm libvirt-bin virtinst libosinfo-bin bridge-util
 
 **Ubuntu 20.04**
 ```bash
-sudo apt install -y qemu-kvm virtinst libvirt-daemon libosinfo-bin bridge-utils
+sudo apt install -y qemu-kvm virtinst libvirt-daemon-system libvirt-daemon libosinfo-bin bridge-utils
 ```
 
 
