@@ -8,14 +8,14 @@ Node.js package is available in LTS release and the current release. It’s your
 
 ```shell
 sudo apt-get install curl
-curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_15.x | sudo -E bash -
 ```
 
 ###### Use LTS Release : At the last update of this tutorial, Node.js 10.16.3 is the LTS release available.
 
 ```shell
 sudo apt-get install curl
-curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
 ```
 
 #### Step 2 – Install Node.js on Ubuntu
